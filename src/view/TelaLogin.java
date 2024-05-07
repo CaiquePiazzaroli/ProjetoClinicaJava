@@ -37,9 +37,7 @@ public class TelaLogin extends JFrame {
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel;
 
-	/**
-	 * Launch the application.
-	 */
+	// função main para executar a tela login
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -53,9 +51,7 @@ public class TelaLogin extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	//Construtor tela login
 	public TelaLogin() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/icones/coracao25.png")));
 		setTitle("AMAR - Sistemas Médicos");

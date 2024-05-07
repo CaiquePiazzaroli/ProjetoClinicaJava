@@ -46,7 +46,7 @@ public class Consulta {
 
 	@Override
 	public String toString() {
-		return "Consulta xxxxx\n" + "Paciente: " + paciente.nome + "\nProfissional Responsável: " + profissional.nome + "\nResultado:" + verificaExame();
+		return "Consulta xxxxx\n" + "Paciente: " + paciente.getNomePaciente() + "\nProfissional Responsável: " + profissional.nome + "\nResultado:" + verificaExame();
 	}
 	
 	

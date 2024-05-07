@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import view.TelaCadastroPaciente;
 
 public class TelaPrincipal extends JFrame {
 
@@ -31,33 +32,20 @@ public class TelaPrincipal extends JFrame {
 	private JLabel lblData;
 	private JLabel lblUsuario;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPrincipal frame = new TelaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	//Construtor da dela principal
 	public TelaPrincipal() {
-		
-		
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaPrincipal.class.getResource("/icones/coracao25.png")));
 		setTitle("AMAR - Tela Principal");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1280, 768);
+		setBounds(100, 100, 951, 665);
+		
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBounds(0, 0, 740, 612);
+		contentPane.add(desktopPane);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -66,6 +54,14 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(menCad);
 		
 		JMenuItem menCadPac = new JMenuItem("Pacientes");
+		menCadPac.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			//chamando o formulário de cadastro de pacientes
+			TelaCadastroPaciente telaCadastroPaciente = new TelaCadastroPaciente();
+			telaCadastroPaciente.setVisible(true);
+			desktopPane.add(telaCadastroPaciente);
+			}
+		});
 		menCadPac.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_DOWN_MASK));
 		menCad.add(menCadPac);
 		
@@ -84,24 +80,19 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		menOpc.add(menOpcSai);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(0, 0, 931, 707);
-		contentPane.add(desktopPane);
-		
 		lblUsuario = new JLabel("Usuario");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblUsuario.setBounds(941, 23, 298, 29);
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblUsuario.setBounds(750, 23, 185, 29);
 		contentPane.add(lblUsuario);
 		
 		lblData = new JLabel("Data");
-		lblData.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblData.setBounds(941, 63, 233, 29);
+		lblData.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblData.setBounds(750, 63, 142, 29);
 		contentPane.add(lblData);
 		
 		
