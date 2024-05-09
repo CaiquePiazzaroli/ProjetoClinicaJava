@@ -3,12 +3,11 @@ import java.util.Date;
 
 import modelo.entidade.*;
 
+import java.time.*;
+
 public class Paciente {
 	
-	private String nomePaciente, rg, numeroTelefone, sexo, cel;
-	private String peso, altura;
-	private String convenio;
-	private String dataNascimento;
+	private String nomePaciente, rg, numeroTelefone, sexo, cel, peso, altura, convenio, dataNascimento;
 	
 	public Paciente(String nomePaciente, String rg, String numeroTelefone, String cel, String dataNascimento, String sexo, String peso, String altura, String convenio) {
 		this.nomePaciente = nomePaciente;

@@ -20,6 +20,7 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -57,9 +58,16 @@ public class TelaPrincipal extends JFrame {
 		menCadPac.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//chamando o formulário de cadastro de pacientes
-			TelaCadastroPaciente telaCadastroPaciente = new TelaCadastroPaciente();
-			telaCadastroPaciente.setVisible(true);
-			desktopPane.add(telaCadastroPaciente);
+			TelaCadastroPaciente telaCadastroPaciente;
+			try {
+				telaCadastroPaciente = new TelaCadastroPaciente();
+				telaCadastroPaciente.setVisible(true);
+				desktopPane.add(telaCadastroPaciente);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 			}
 		});
 		menCadPac.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_DOWN_MASK));
