@@ -25,6 +25,7 @@ import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import view.TelaCadastroPaciente;
+import java.awt.Color;
 
 public class TelaPrincipal extends JFrame {
 
@@ -45,6 +46,7 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBackground(new Color(192, 192, 192));
 		desktopPane.setBounds(0, 0, 740, 612);
 		contentPane.add(desktopPane);
 		

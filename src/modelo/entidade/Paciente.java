@@ -20,6 +20,9 @@ public class Paciente {
 		this.altura = altura;
 		this.convenio = convenio;
 	}
+	
+	
+	
 
 	public String getNomePaciente() {
 		return nomePaciente;
@@ -92,5 +95,16 @@ public class Paciente {
 	public void setConvenio(String convenio) {
 		this.convenio = convenio;
 	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Paciente [nomePaciente=" + nomePaciente + ", rg=" + rg + ", numeroTelefone=" + numeroTelefone
+				+ ", sexo=" + sexo + ", cel=" + cel + ", peso=" + peso + ", altura=" + altura + ", convenio=" + convenio
+				+ ", dataNascimento=" + dataNascimento + "]";
+	}
+	
 	
 }

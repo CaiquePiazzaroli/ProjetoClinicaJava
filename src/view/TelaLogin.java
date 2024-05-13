@@ -27,6 +27,11 @@ import java.util.ArrayList;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import view.*;
+import java.awt.Window.Type;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.UIManager;
 
 public class TelaLogin extends JFrame {
 
@@ -39,6 +44,11 @@ public class TelaLogin extends JFrame {
 
 	// função main para executar a tela login
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,7 +67,11 @@ public class TelaLogin extends JFrame {
 		setTitle("AMAR - Sistemas Médicos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 456, 300);
+		
+		//Retira abarra superior
+		//setUndecorated(true);
+	
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,7 +105,7 @@ public class TelaLogin extends JFrame {
 				login();
 			}	
 		});
-		btnNewButton.setBounds(173, 212, 89, 23);
+		btnNewButton.setBounds(174, 212, 89, 23);
 		contentPane.add(btnNewButton);
 		
 		lblNewLabel = new JLabel("");
@@ -139,8 +153,7 @@ public class TelaLogin extends JFrame {
 			}	
 		} else {
 			JOptionPane.showMessageDialog(null, "Usuário ou/e senha incorretos");
-		}
-		
+		}	
 	}
 
 
@@ -151,5 +164,4 @@ public class TelaLogin extends JFrame {
 	public JPasswordField getPasswordField() {
 		return passwordField;
 	}
-	
 }
