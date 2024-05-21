@@ -2,10 +2,11 @@ package modelo.entidade;
 
 public class Profissional {
 	
-	String nome; 
+	private String nome, idProf; 
 	
-	Profissional(String nome){
+	public Profissional(String nome, String idProf){
 		this.nome = nome;
+		this.idProf = idProf;
 	}
 	
 	

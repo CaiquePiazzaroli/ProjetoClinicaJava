@@ -41,15 +41,5 @@ public class Consulta {
 		} else {
 			return "Nada foi selecionado";
 		}
-	}
-	
-
-	@Override
-	public String toString() {
-		return "Consulta xxxxx\n" + "Paciente: " + paciente.getNomePaciente() + "\nProfissional Responsável: " + profissional.nome + "\nResultado:" + verificaExame();
-	}
-	
-	
-	
-	
+	}	
 }

@@ -75,6 +75,16 @@ public class TelaPrincipal extends JFrame {
 		menCadPac.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.ALT_DOWN_MASK));
 		menCad.add(menCadPac);
 		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Profissionais");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroProfissional telaProfissional = new TelaCadastroProfissional();
+				telaProfissional.setVisible(true);
+				desktopPane.add(telaProfissional);
+			}
+		});
+		menCad.add(mntmNewMenuItem);
+		
 		JMenu menOpc = new JMenu("Opções");
 		menuBar.add(menOpc);
 		
@@ -126,7 +136,4 @@ public class TelaPrincipal extends JFrame {
 	public JLabel getLblUsuario() {
 		return lblUsuario;
 	}	
-	
-	
-		
 }
