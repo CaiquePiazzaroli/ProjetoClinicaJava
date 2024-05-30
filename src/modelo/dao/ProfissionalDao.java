@@ -98,12 +98,18 @@ public class ProfissionalDao {
 			int confirma = JOptionPane.showConfirmDialog(null,"Existem especialidades vinculadas a este profissional, você deseja excluí-las?", "Atenção", JOptionPane.YES_NO_OPTION);
 			if(confirma==JOptionPane.YES_OPTION) {
 				String sqlDelEspec = "delete from especialidadeProfissional where idProfissional = ?";
+				String sqlDelhora = "delete from horarioProfissional where idProfissional = ?";
 				try {
 					PreparedStatement pst2;
+					PreparedStatement pst3;
 					pst2 = conexao.prepareStatement(sqlDelEspec);
 					pst2.setString(1, idProf);
+					
+					pst3 = conexao.prepareStatement(sqlDelhora);
+					pst3.setString(1, idProf);
 					int alteradoEspec = pst2.executeUpdate();
-					if(alteradoEspec < 0) {
+					int alteradoHora = pst3.executeUpdate();
+					if(alteradoEspec < 0 && alteradoHora > 0) {
 						JOptionPane.showMessageDialog(null, "Não foi possivel excluir!");
 					} else {
 						int alterado = pst.executeUpdate();
@@ -143,6 +149,19 @@ public class ProfissionalDao {
 		}
 	}
 	
+	
+	public ResultSet createHorario(String idProf) {
+		String sql= "select diaSemana as 'Dia da Semana', horaInicio as 'Início', horaFim as 'Fim' from horarioProfissional where idProfissional = ?";
+		try {
+			pst = conexao.prepareStatement(sql);
+			pst.setString(1, idProf);
+			rs = pst.executeQuery();
+			return rs;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,e);
+			return null;
+		}
+	}
 	
 	
 }

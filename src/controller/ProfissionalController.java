@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import view.TelaCadastroHorario;
 import view.TelaCadastroProfissional;
 import modelo.dao.*;
 
@@ -59,5 +60,13 @@ public class ProfissionalController {
 			ProfissionalDao profissionalDao = new ProfissionalDao();
 			profissionalDao.deleteEspecialidade(idProfissional, especialidade);
 		}
+		
+		public ResultSet pesquisaHorarioProfissional(TelaCadastroProfissional profissionalTela) {
+			String idProfissional = profissionalTela.getTxtIdProf().getText();
+			ProfissionalDao profissionalDao = new ProfissionalDao();
+			ResultSet resultadoCreateHorario = profissionalDao.createHorario(idProfissional);
+			return resultadoCreateHorario;
+		}
+		
 		
 }

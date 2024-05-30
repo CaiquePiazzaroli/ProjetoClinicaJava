@@ -37,6 +37,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.BevelBorder;
+import java.awt.Font;
+import java.awt.Color;
 
 
 public class TelaCadastroPaciente extends JInternalFrame {
@@ -67,72 +69,88 @@ public class TelaCadastroPaciente extends JInternalFrame {
 	private JLabel lblNewLabel_10;
 	private JLabel lblNewLabel_11;
 	
+	private JButton btnAtualizarPaciente;
+	
 
 
 	//Construtor da tela de cadastro de pacientes 
 	//throws ParseException é necessário para trabalhar com o MaskFormater
 	public TelaCadastroPaciente() throws ParseException {
+		setMaximizable(true);
+		getContentPane().setBackground(new Color(227, 227, 227));
 		setTitle("Cadastro Pacientes");
 		setResizable(true);
 		setIconifiable(true);
 		setClosable(true);
-		setBounds(0, 0, 740, 612);
+		setBounds(0, 0, 948, 669);
 		getContentPane().setLayout(null);
 		
 		
 		//Labels do form
 		JLabel lblNewLabel = new JLabel("Nome do Paciente*");
-		lblNewLabel.setBounds(23, 321, 110, 14);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel.setBounds(23, 319, 139, 27);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Data de Nascimento*");
-		lblNewLabel_1.setBounds(23, 421, 110, 14);
+		lblNewLabel_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(10, 401, 152, 27);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("RG*");
-		lblNewLabel_2.setBounds(91, 369, 42, 14);
+		lblNewLabel_2.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(128, 357, 34, 27);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Altura");
-		lblNewLabel_3.setBounds(78, 470, 34, 14);
+		lblNewLabel_3.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(111, 439, 51, 27);
 		getContentPane().add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Peso");
-		lblNewLabel_4.setBounds(469, 418, 57, 14);
+		lblNewLabel_4.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(638, 401, 46, 27);
 		getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Sexo*");
-		lblNewLabel_5.setBounds(259, 421, 35, 14);
+		lblNewLabel_5.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_5.setBounds(380, 401, 46, 27);
 		getContentPane().add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Telefone");
-		lblNewLabel_6.setBounds(259, 366, 57, 14);
+		lblNewLabel_6.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_6.setBounds(370, 360, 69, 27);
 		getContentPane().add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Celular");
-		lblNewLabel_7.setBounds(469, 369, 46, 14);
+		lblNewLabel_7.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_7.setBounds(628, 363, 57, 27);
 		getContentPane().add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("Convenio*");
-		lblNewLabel_8.setBounds(259, 470, 62, 14);
+		lblNewLabel_8.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_8.setBounds(357, 439, 82, 27);
 		getContentPane().add(lblNewLabel_8);
 		
 		
 		//Campos de texto do form
 		
 		txtNomePaciente = new JTextField();
-		txtNomePaciente.setBounds(130, 318, 569, 20);
+		txtNomePaciente.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		txtNomePaciente.setBounds(182, 319, 687, 27);
 		getContentPane().add(txtNomePaciente);
 		txtNomePaciente.setColumns(10);
 		
 		txtAltura = new JTextField();
-		txtAltura.setBounds(130, 467, 96, 20);
+		txtAltura.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		txtAltura.setBounds(182, 439, 148, 27);
 		getContentPane().add(txtAltura);
 		txtAltura.setColumns(10);
 		
 		
 		txtPeso = new JTextField();
-		txtPeso.setBounds(525, 418, 174, 20);
+		txtPeso.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		txtPeso.setBounds(695, 404, 174, 27);
 		getContentPane().add(txtPeso);
 		txtPeso.setColumns(10);
 		
@@ -140,35 +158,40 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		formatadorData = new MaskFormatter("##/##/####"); //Cria um padrao para o campo data e atribui apenas numeros para serem digitados
 		formatadorData.setValidCharacters("0123456789");
 		txtDataNascimento = new JFormattedTextField(formatadorData);
+		txtDataNascimento.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		txtDataNascimento.setHorizontalAlignment(SwingConstants.CENTER);
-		txtDataNascimento.setBounds(130, 418, 110, 20);
+		txtDataNascimento.setBounds(182, 401, 148, 27);
 		getContentPane().add(txtDataNascimento);
 				
 				
 		formatadorRg = new MaskFormatter("#########");
-		formatadorRg.setValidCharacters("0123456789");	
+		formatadorRg.setValidCharacters("0123456789 ");	
 		txtRG = new JFormattedTextField(formatadorRg);
+		txtRG.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		txtRG.setHorizontalAlignment(SwingConstants.CENTER);
-		txtRG.setBounds(130, 366, 110, 20);
+		txtRG.setBounds(182, 357, 148, 27);
 		getContentPane().add(txtRG);
 						
 		formatadorTelefone = new MaskFormatter("########");
 		formatadorTelefone.setValidCharacters("0123456789");
 		txtTelefone = new JFormattedTextField(formatadorTelefone);
+		txtTelefone.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		txtTelefone.setHorizontalAlignment(SwingConstants.CENTER);
-		txtTelefone.setBounds(312, 366, 135, 20);
+		txtTelefone.setBounds(449, 363, 148, 27);
 		getContentPane().add(txtTelefone);
 	
 		formatadorCel = new MaskFormatter("(##)#####-####");
 		formatadorCel.setValidCharacters("0123456789");
 		txtCelular = new JFormattedTextField(formatadorCel);
+		txtCelular.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		txtCelular.setHorizontalAlignment(SwingConstants.CENTER);
-		txtCelular.setBounds(525, 363, 174, 20);
+		txtCelular.setBounds(695, 363, 174, 27);
 		getContentPane().add(txtCelular);
 		txtCelular.setColumns(10);
 		
 		txtConvenio = new JTextField();
-		txtConvenio.setBounds(312, 467, 135, 20);
+		txtConvenio.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		txtConvenio.setBounds(449, 439, 148, 27);
 		getContentPane().add(txtConvenio);
 		txtConvenio.setColumns(10);
 		
@@ -181,55 +204,71 @@ public class TelaCadastroPaciente extends JInternalFrame {
 				pesquisarPaciente();
 			}
 		});
-		txtPacPesquisar.setBounds(23, 27, 318, 20);
+		txtPacPesquisar.setBounds(176, 14, 318, 27);
 		getContentPane().add(txtPacPesquisar);
 		txtPacPesquisar.setColumns(10);
 		
 		
 		
 		JLabel lblIdPaciente = new JLabel("Id Paciente");
-		lblIdPaciente.setBounds(23, 284, 89, 14);
+		lblIdPaciente.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblIdPaciente.setBounds(78, 278, 82, 27);
 		getContentPane().add(lblIdPaciente);
 		
 		txtIdPaciente = new JTextField();
+		txtIdPaciente.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		txtIdPaciente.setEnabled(false);
-		txtIdPaciente.setBounds(130, 281, 86, 20);
+		txtIdPaciente.setBounds(182, 281, 86, 27);
 		getContentPane().add(txtIdPaciente);
 		txtIdPaciente.setColumns(10);
 		
 		lblNewLabel_9 = new JLabel("Campos Obrigatórios*");
-		lblNewLabel_9.setBounds(493, 284, 149, 14);
+		lblNewLabel_9.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_9.setBounds(702, 281, 167, 27);
 		getContentPane().add(lblNewLabel_9);
 		
 		
 		//Combo box do form
 		cboSexo = new JComboBox();
+		cboSexo.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		cboSexo.setModel(new DefaultComboBoxModel(new String[] {"Feminino", "Masculino", "Outros"}));
-		cboSexo.setBounds(312, 417, 135, 22);
+		cboSexo.setBounds(449, 401, 148, 27);
 		getContentPane().add(cboSexo);
 		
 		
 		
 		//Botoes do form
-		btnCadastrarPaciente = new JButton("Cadastrar");
+		btnCadastrarPaciente = new JButton("");
+		btnCadastrarPaciente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnCadastrarPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/CadastrarPacienteHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnCadastrarPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/CadastrarPaciente.png")));
+			}
+		});
+		btnCadastrarPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/CadastrarPaciente.png")));
 		btnCadastrarPaciente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnCadastrarPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cadastrarPaciente();
 			}
 		});
-		btnCadastrarPaciente.setBounds(23, 536, 110, 23);
+		btnCadastrarPaciente.setBounds(37, 573, 199, 41);
 		getContentPane().add(btnCadastrarPaciente);
 		
 		
 		//Scroll Pane para conter a tabela
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(23, 62, 676, 198);
+		scrollPane.setBounds(23, 62, 899, 198);
 		getContentPane().add(scrollPane);
 		
 		
 		//Tabela
 		tbPacientes = new JTable();
+		tbPacientes.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		tbPacientes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -246,35 +285,64 @@ public class TelaCadastroPaciente extends JInternalFrame {
 			}
 		)
 		);
+		tbPacientes.setRowHeight(30);
+		
 		scrollPane.setViewportView(tbPacientes);	
 		
-		JButton btnAtualizarPaciente = new JButton("Atualizar");
+		btnAtualizarPaciente = new JButton("");
+		btnAtualizarPaciente.setEnabled(false);
+		btnAtualizarPaciente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAtualizarPaciente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnAtualizarPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/AtualizarPacienteHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAtualizarPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/AtualizarPaciente.png")));
+			}
+		});
+		btnAtualizarPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/AtualizarPaciente.png")));
 		btnAtualizarPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Chamando a função atualizar cliente para o botao atualizar no form
 				atualizarPaciente();
 			}
 		});
-		btnAtualizarPaciente.setBounds(315, 536, 110, 23);
+		btnAtualizarPaciente.setBounds(376, 573, 199, 41);
 		getContentPane().add(btnAtualizarPaciente);
 		
-		btnExcluirPaciente = new JButton("Excluir");
+		btnExcluirPaciente = new JButton("");
+		btnExcluirPaciente.setEnabled(false);
+		btnExcluirPaciente.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnExcluirPaciente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnExcluirPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/ExcluirPacienteHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnExcluirPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/ExcluirPaciente.png")));
+			}
+		});
+		btnExcluirPaciente.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/ExcluirPaciente.png")));
 		btnExcluirPaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Chamando o método excluir paciente
 				excluirPaciente();
 			}
 		});
-		btnExcluirPaciente.setBounds(595, 536, 104, 23);
+		btnExcluirPaciente.setBounds(687, 573, 199, 41);
 		getContentPane().add(btnExcluirPaciente);
 		
 		lblNewLabel_10 = new JLabel("");
 		lblNewLabel_10.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/procurar.png")));
-		lblNewLabel_10.setBounds(344, 27, 24, 20);
+		lblNewLabel_10.setBounds(504, 21, 24, 20);
 		getContentPane().add(lblNewLabel_10);
 		
 		lblNewLabel_11 = new JLabel("Pesquisar Pacientes:");
-		lblNewLabel_11.setBounds(23, 11, 111, 14);
+		lblNewLabel_11.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_11.setBounds(23, 11, 152, 27);
 		getContentPane().add(lblNewLabel_11);
 		
 		
@@ -383,6 +451,8 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		txtCelular.setText(tbPacientes.getModel().getValueAt(setar, 8).toString());
 		txtConvenio.setText(tbPacientes.getModel().getValueAt(setar, 9).toString());
 		btnCadastrarPaciente.setEnabled(false);
+		btnExcluirPaciente.setEnabled(true);
+		btnAtualizarPaciente.setEnabled(true);
 		
 	}
 	
@@ -407,12 +477,15 @@ public class TelaCadastroPaciente extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, "Usário Alterado com sucesso!");
 				limparCampos();
 				btnCadastrarPaciente.setEnabled(true);
+				btnExcluirPaciente.setEnabled(false);
+				btnAtualizarPaciente.setEnabled(false);
 				pesquisarPaciente();
 			} else if(resultadoPacienteController.equals("camposVazios")) {
 				JOptionPane.showMessageDialog(null, "Os campos obrigatórios não podem estar em branco");
 			} else if (resultadoPacienteController.equals("usuarioInvalido")) {
 				JOptionPane.showMessageDialog(null, "Usuário Inválido!");
-			}		
+			}
+			
 	}
 
 	//O método abaixo exclui o paciente
@@ -430,14 +503,23 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		
 		PacienteController pacienteController = new PacienteController();
 		String resultadoPacienteController = pacienteController.excluiPaciente(TelaCadastroPaciente.this);
-		if(resultadoPacienteController.equals("sucesso")) {
+		if(resultadoPacienteController == null) {
+			pesquisarPaciente();
+			limparCampos();
+			btnExcluirPaciente.setEnabled(false);
+			btnAtualizarPaciente.setEnabled(false);
+			btnCadastrarPaciente.setEnabled(true);
+		} else if(resultadoPacienteController.equals("sucesso")) {
 			JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso!");
 			limparCampos();
 			btnCadastrarPaciente.setEnabled(true);
 			pesquisarPaciente();
+			btnExcluirPaciente.setEnabled(false);
+			btnAtualizarPaciente.setEnabled(false);
 		} else {
 			JOptionPane.showMessageDialog(null, "Não foi possível excluir o usuário");
 		}
+		
 	}
 		
 	public JTextField getTxtIdPaciente() {

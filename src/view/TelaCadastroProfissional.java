@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +35,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import modelo.entidade.Profissional;
+import view.TelaCadastroHorario;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class TelaCadastroProfissional extends JInternalFrame {
 
@@ -46,30 +51,16 @@ public class TelaCadastroProfissional extends JInternalFrame {
 	private JButton btnExcluirProf;
 	private JButton btnIncluirProf;
 	private JButton btnExcluirEspec;
+	private JTable tblHorarioProf;
+	private JButton btnAdicionarEspec;
+	private JLabel lblNewLabel_5;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaCadastroProfissional frame = new TelaCadastroProfissional();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public TelaCadastroProfissional() {
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
+		
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
@@ -78,31 +69,33 @@ public class TelaCadastroProfissional extends JInternalFrame {
 			}
 		});
 		setTitle("Cadastro de profissionais");
-		setBounds(0, 0, 740, 612);
+		setBounds(0, 0,  948, 669);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("idProfissional");
-		lblNewLabel.setBounds(421, 76, 72, 14);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel.setBounds(598, 109, 110, 27);
 		getContentPane().add(lblNewLabel);
 		
 		txtIdProf = new JTextField();
-		txtIdProf.setBounds(420, 101, 86, 20);
+		txtIdProf.setBounds(598, 147, 86, 20);
 		getContentPane().add(txtIdProf);
 		txtIdProf.setEnabled(false);
 		txtIdProf.setEditable(false);
 		txtIdProf.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nome Profissional");
-		lblNewLabel_1.setBounds(421, 137, 99, 14);
+		JLabel lblNewLabel_1 = new JLabel("Nome Profissional*");
+		lblNewLabel_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(596, 168, 150, 27);
 		getContentPane().add(lblNewLabel_1);
 		
 		txtNomeProf = new JTextField();
-		txtNomeProf.setBounds(421, 162, 293, 20);
+		txtNomeProf.setBounds(598, 197, 324, 20);
 		getContentPane().add(txtNomeProf);
 		txtNomeProf.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 42, 401, 191);
+		scrollPane.setBounds(10, 42, 575, 191);
 		getContentPane().add(scrollPane);
 		
 		tblProfissionais = new JTable();
@@ -130,11 +123,12 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		scrollPane.setViewportView(tblProfissionais);
 		
 		JLabel lblNewLabel_2 = new JLabel("Especialidades do profissional");
-		lblNewLabel_2.setBounds(10, 244, 159, 14);
+		lblNewLabel_2.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_2.setBounds(10, 238, 215, 27);
 		getContentPane().add(lblNewLabel_2);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 269, 293, 185);
+		scrollPane_1.setBounds(10, 269, 452, 185);
 		getContentPane().add(scrollPane_1);
 		
 		tblEspecProf = new JTable();
@@ -142,6 +136,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				btnExcluirEspec.setEnabled(true);
+				btnAdicionarEspec.setEnabled(true);
 				
 			}
 		});
@@ -155,7 +150,9 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		));
 		scrollPane_1.setViewportView(tblEspecProf);
 		
-		JButton btnAdicionarEspec = new JButton("Adicionar");
+		btnAdicionarEspec = new JButton("Adicionar");
+		btnAdicionarEspec.setEnabled(false);
+		btnAdicionarEspec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAdicionarEspec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Chamando o método adicionar especialiadade
@@ -166,27 +163,63 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		getContentPane().add(btnAdicionarEspec);
 		
 		btnIncluirProf = new JButton("Incluir Profissional");
+		btnIncluirProf.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnIncluirProf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnIncluirProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/IncluirProfissionalHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnIncluirProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/IncluirProfissional.png")));
+			}
+		});
+		btnIncluirProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/IncluirProfissional.png")));
 		btnIncluirProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Chamando o método de criar profissional
 				criarProfissional();
 			}
 		});
-		btnIncluirProf.setBounds(10, 548, 119, 23);
+		btnIncluirProf.setBounds(10, 573, 257, 32);
 		getContentPane().add(btnIncluirProf);
 		
 		btnAtualizarProf = new JButton("Atualizar Profissional");
+		btnAtualizarProf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnAtualizarProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/AtualizarProfissionalHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAtualizarProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/AtualizarProfissional.png")));
+			}
+		});
+		btnAtualizarProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/AtualizarProfissional.png")));
 		btnAtualizarProf.setEnabled(false);
+		btnAtualizarProf.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAtualizarProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Chamando o metodo atualizar profissional
 				atualizarProfissional();
 			}
 		});
-		btnAtualizarProf.setBounds(267, 548, 159, 23);
+		btnAtualizarProf.setBounds(337, 573, 257, 32);
 		getContentPane().add(btnAtualizarProf);
 		
 		btnExcluirProf = new JButton("Excluir Profissional");
+		btnExcluirProf.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnExcluirProf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnExcluirProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/ExcluirProfissionalHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnExcluirProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/ExcluirProfissional.png")));
+			}
+		});
+		btnExcluirProf.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/ExcluirProfissional.png")));
 		btnExcluirProf.setEnabled(false);
 		btnExcluirProf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -197,11 +230,12 @@ public class TelaCadastroProfissional extends JInternalFrame {
 				}
 			}
 		});
-		btnExcluirProf.setBounds(575, 548, 139, 23);
+		btnExcluirProf.setBounds(665, 573, 257, 32);
 		getContentPane().add(btnExcluirProf);
 		
 		JLabel lblNewLabel_3 = new JLabel("Campos Obrigatórios *");
-		lblNewLabel_3.setBounds(561, 109, 111, 14);
+		lblNewLabel_3.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_3.setBounds(593, 71, 171, 27);
 		getContentPane().add(lblNewLabel_3);
 		
 		txtPesquisarProf = new JTextField();
@@ -212,12 +246,13 @@ public class TelaCadastroProfissional extends JInternalFrame {
 				pesquisarProfissional();
 			}
 		});
-		txtPesquisarProf.setBounds(10, 11, 250, 20);
+		txtPesquisarProf.setBounds(10, 11, 250, 27);
 		getContentPane().add(txtPesquisarProf);
 		txtPesquisarProf.setColumns(10);
 		
 		btnExcluirEspec = new JButton("Excluir");
 		btnExcluirEspec.setEnabled(false);
+		btnExcluirEspec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExcluirEspec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Chamando o método excluir espec
@@ -226,7 +261,45 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		});
 		btnExcluirEspec.setBounds(98, 460, 86, 20);
 		getContentPane().add(btnExcluirEspec);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(480, 269, 442, 185);
+		getContentPane().add(scrollPane_2);
+		
+		tblHorarioProf = new JTable();
+		tblHorarioProf.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Horarios de Atendimento"
+			}
+		));
+		tblHorarioProf.getColumnModel().getColumn(0).setPreferredWidth(206);
+		scrollPane_2.setViewportView(tblHorarioProf);
+		
+		JLabel lblNewLabel_4 = new JLabel("Horarios de Atendimento");
+		lblNewLabel_4.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblNewLabel_4.setBounds(738, 238, 184, 27);
+		getContentPane().add(lblNewLabel_4);
+		
+		JButton btnAdicionarHorario = new JButton("Adicionar Horario");
+		btnAdicionarHorario.setEnabled(false);
+		btnAdicionarHorario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Chamando a função pesquisarHorario()
+				//pesquisarHorario();
+			}
+		});
+		btnAdicionarHorario.setBounds(480, 459, 133, 23);
+		getContentPane().add(btnAdicionarHorario);
+		
+		lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/doutor.png")));
+		lblNewLabel_5.setBounds(782, 68, 128, 118);
+		getContentPane().add(lblNewLabel_5);
 	} 
+
 	
 	public void setarCampos() {
 		//Pega a linha que está selecionada
@@ -237,6 +310,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		btnExcluirProf.setEnabled(true);
 		btnIncluirProf.setEnabled(false);
 		pesquisarEspecialidade();
+		pesquisarHorario();
 
 	}
 	
@@ -247,6 +321,12 @@ public class TelaCadastroProfissional extends JInternalFrame {
 				new Object[][] {},
 				new String[] {
 					"Especialidades"
+				}
+		));
+		tblHorarioProf.setModel(new DefaultTableModel(
+				new Object[][] {},
+				new String[] {
+					"Horarios de atendimento"
 				}
 		));
 		btnAtualizarProf.setEnabled(false);
@@ -294,6 +374,8 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		ProfissionalController profissionalController = new ProfissionalController();
 		ResultSet rs = profissionalController.pesquisaEspecialidadeProfissional(TelaCadastroProfissional.this);
 		tblEspecProf.setModel(DbUtils.resultSetToTableModel(rs));
+		btnAdicionarEspec.setEnabled(true);
+		
 	}
 	
 	private void adicionarEspecialidade() {
@@ -315,8 +397,16 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		profissionalController.excluirEspecialidade(idProf, especialidade);
 		pesquisarEspecialidade();
 		btnExcluirEspec.setEnabled(false);
-		
 	}
+	
+	
+	private void pesquisarHorario() {
+		ProfissionalController profissionalController = new ProfissionalController();
+		ResultSet rs = profissionalController.pesquisaHorarioProfissional(TelaCadastroProfissional.this);
+		tblHorarioProf.setModel(DbUtils.resultSetToTableModel(rs));
+	}
+	
+	
 	
 	public JTextField getTxtIdProf() {
 			return txtIdProf;

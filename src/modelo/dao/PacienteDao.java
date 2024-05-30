@@ -35,8 +35,8 @@ public class PacienteDao {
 			pst.setString(8, paciente.getCel()); //Não é obrigatório
 			pst.setString(9, paciente.getConvenio()); //Obrigatório
 			if(
-				paciente.getNomePaciente().isEmpty() || paciente.getDataNascimento().isEmpty() 
-				|| paciente.getRg().isEmpty() || paciente.getConvenio().isEmpty() 
+					paciente.getDataNascimento().contains(" ") || paciente.getNomePaciente().isEmpty() || paciente.getNomePaciente().isBlank() || paciente.getDataNascimento().isEmpty() || paciente.getDataNascimento().isBlank() 
+					|| paciente.getRg().isEmpty() || paciente.getRg().isBlank() || paciente.getConvenio().isEmpty() || paciente.getConvenio().isBlank()   
 			){
 				return "camposVazios";
 			} else {
@@ -91,8 +91,8 @@ public class PacienteDao {
 			pst.setString(9, paciente.getConvenio().toString());
 			pst.setString(10, idPaciente.toString());
 			if(
-					paciente.getNomePaciente().isEmpty() || paciente.getDataNascimento().isEmpty() 
-					|| paciente.getRg().isEmpty() || paciente.getConvenio().isEmpty() 
+					paciente.getDataNascimento().contains(" ") || paciente.getNomePaciente().isEmpty() || paciente.getNomePaciente().isBlank() || paciente.getDataNascimento().isEmpty() || paciente.getDataNascimento().isBlank() 
+					|| paciente.getRg().isEmpty() || paciente.getRg().isBlank() || paciente.getConvenio().isEmpty() || paciente.getConvenio().isBlank() 
 			){
 					return "camposVazios";
 			} else {

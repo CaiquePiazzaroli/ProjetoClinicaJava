@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import view.TelaCadastroPaciente;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class TelaPrincipal extends JFrame {
 
@@ -40,23 +41,30 @@ public class TelaPrincipal extends JFrame {
 		setTitle("AMAR - Tela Principal");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 951, 665);
+		setBounds(100, 100, 1213, 737);
 		
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(67, 67, 67));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBackground(new Color(192, 192, 192));
-		desktopPane.setBounds(0, 0, 740, 612);
+		desktopPane.setBackground(new Color(227, 227, 227));
+		desktopPane.setBounds(248, -2, 948, 671);
 		contentPane.add(desktopPane);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		menuBar.setBackground(new Color(128, 0, 64));
 		setJMenuBar(menuBar);
 		
 		JMenu menCad = new JMenu("Cadastro");
+		menCad.setBackground(new Color(227, 227, 227));
+		menCad.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menuBar.add(menCad);
 		
 		JMenuItem menCadPac = new JMenuItem("Pacientes");
+		menCadPac.setBackground(new Color(227, 227, 227));
+		menCadPac.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menCadPac.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			//chamando o formulário de cadastro de pacientes
@@ -76,6 +84,7 @@ public class TelaPrincipal extends JFrame {
 		menCad.add(menCadPac);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("Profissionais");
+		mntmNewMenuItem.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaCadastroProfissional telaProfissional = new TelaCadastroProfissional();
@@ -86,9 +95,11 @@ public class TelaPrincipal extends JFrame {
 		menCad.add(mntmNewMenuItem);
 		
 		JMenu menOpc = new JMenu("Opções");
+		menOpc.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menuBar.add(menOpc);
 		
 		JMenuItem menOpcSai = new JMenuItem("Sair");
+		menOpcSai.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menOpcSai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Exibe uma caixa de dialogo
@@ -106,14 +117,26 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		
 		lblUsuario = new JLabel("Usuario");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblUsuario.setBounds(750, 23, 185, 29);
+		lblUsuario.setForeground(new Color(255, 255, 255));
+		lblUsuario.setFont(new Font("Yu Gothic UI", Font.BOLD, 16));
+		lblUsuario.setBounds(24, 89, 184, 40);
 		contentPane.add(lblUsuario);
 		
 		lblData = new JLabel("Data");
-		lblData.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblData.setBounds(750, 63, 142, 29);
+		lblData.setForeground(new Color(255, 255, 255));
+		lblData.setFont(new Font("Yu Gothic", Font.BOLD, 16));
+		lblData.setBounds(24, 140, 153, 29);
 		contentPane.add(lblData);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/Divisória.png")));
+		lblNewLabel.setBounds(240, 34, 4, 606);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(TelaPrincipal.class.getResource("/icones/Clinic Soft120xwhite.png")));
+		lblNewLabel_1.setBounds(49, 32, 128, 46);
+		contentPane.add(lblNewLabel_1);
 		
 		
 		

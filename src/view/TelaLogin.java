@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -41,6 +42,7 @@ public class TelaLogin extends JFrame {
 	private JTextField textFieldUsuario;
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
 
 	// função main para executar a tela login
 	public static void main(String[] args) {
@@ -64,54 +66,78 @@ public class TelaLogin extends JFrame {
 	//Construtor tela login
 	public TelaLogin() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/icones/coracao25.png")));
-		setTitle("AMAR - Sistemas Médicos");
+		setTitle("Clinic Soft Sistemas Médicos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 456, 300);
+		setBounds(100, 100, 611, 491);
 		
 		//Retira abarra superior
 		//setUndecorated(true);
 	
 		
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(227, 227, 227));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblUsuário = new JLabel("Usuário");
+		lblUsuário = new JLabel("");
+		lblUsuário.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/Usuário.png")));
 		lblUsuário.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblUsuário.setBounds(74, 125, 68, 32);
+		lblUsuário.setBounds(144, 172, 81, 20);
 		contentPane.add(lblUsuário);
 		
 		textFieldUsuario = new JTextField();
-		textFieldUsuario.setBounds(139, 131, 200, 20);
+		textFieldUsuario.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		textFieldUsuario.setBounds(144, 203, 316, 34);
 		contentPane.add(textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
-		JLabel lblSenha = new JLabel("Senha");
+		JLabel lblSenha = new JLabel("");
+		lblSenha.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/Senha.png")));
 		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblSenha.setBounds(74, 162, 68, 32);
+		lblSenha.setBounds(144, 250, 68, 32);
 		contentPane.add(lblSenha);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(139, 168, 200, 20);
+		passwordField.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		passwordField.setBounds(144, 277, 316, 34);
 		contentPane.add(passwordField);
 		
 		JButton btnNewButton = new JButton("Login ");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnNewButton.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/btnLoginHover.png")));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnNewButton.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/btnLogin.png")));
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/btnLogin.png")));
+		btnNewButton.setBackground(new Color(115, 188, 255));
 		//Evento ao clicar sobre o botao login
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				login();
 			}	
 		});
-		btnNewButton.setBounds(174, 212, 89, 23);
+		btnNewButton.setBounds(178, 362, 249, 34);
 		contentPane.add(btnNewButton);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/CoracaoX80Desc.png")));
-		lblNewLabel.setBounds(139, 25, 169, 75);
+		lblNewLabel.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/Clinic Soft.png")));
+		lblNewLabel.setFont(new Font("Leelawadee UI", Font.BOLD, 17));
+		lblNewLabel.setBounds(178, 69, 249, 41);
 		contentPane.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(TelaLogin.class.getResource("/icones/Bem vindo ao Clinic Soft.png")));
+		lblNewLabel_1.setBounds(155, 121, 305, 29);
+		contentPane.add(lblNewLabel_1);
 	}
 	
 	public void login() {
@@ -134,7 +160,7 @@ public class TelaLogin extends JFrame {
 				
 				//Inserindo o nome do usuario na tela inicial
 				telaPrincipal.getLblUsuario().setText("Olá, " + dadosUsuario.get(0));
-				telaPrincipal.getLblUsuario().setForeground(Color.red);
+				//telaPrincipal.getLblUsuario().setForeground(Color.red);
 				
 				
 				//Fechando a tela de login
