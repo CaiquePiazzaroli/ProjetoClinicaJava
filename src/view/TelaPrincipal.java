@@ -94,6 +94,32 @@ public class TelaPrincipal extends JFrame {
 		});
 		menCad.add(mntmNewMenuItem);
 		
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Holter 24");
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroHolter telaHolter = new TelaCadastroHolter();
+				telaHolter.setVisible(true);
+				desktopPane.add(telaHolter);
+			}
+		});
+		mntmNewMenuItem_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		menCad.add(mntmNewMenuItem_1);
+		
+		JMenu mnNewMenu = new JMenu("Consultas");
+		mnNewMenu.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agenda de exames");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaAgendaExames agendaExames = new TelaAgendaExames();
+				agendaExames.setVisible(true);
+				desktopPane.add(agendaExames);
+			}
+		});
+		mntmNewMenuItem_2.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		mnNewMenu.add(mntmNewMenuItem_2);
+		
 		JMenu menOpc = new JMenu("Opções");
 		menOpc.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menuBar.add(menOpc);

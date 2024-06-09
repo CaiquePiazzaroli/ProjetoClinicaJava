@@ -24,6 +24,7 @@ import net.proteanit.sql.DbUtils;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -35,7 +36,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ListSelectionModel;
 import java.awt.Font;
 import modelo.entidade.Profissional;
-import view.TelaCadastroHorario;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
@@ -54,7 +54,14 @@ public class TelaCadastroProfissional extends JInternalFrame {
 	private JTable tblHorarioProf;
 	private JButton btnAdicionarEspec;
 	private JLabel lblNewLabel_5;
-
+	private JLabel lblNewLabel_6;
+	private JTextField txtHoraInicio;
+	private JTextField txtHoraFim;
+	private JComboBox cboDiaSemana;
+	private JButton btnAdicionarHorario;
+	private JButton btnExcluirHorario;
+	private JButton btnAtualizarHorario;
+	private JComboBox cboEspecialidade;
 	
 	public TelaCadastroProfissional() {
 		setMaximizable(true);
@@ -127,40 +134,40 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		lblNewLabel_2.setBounds(10, 238, 215, 27);
 		getContentPane().add(lblNewLabel_2);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 269, 452, 185);
-		getContentPane().add(scrollPane_1);
+//		JScrollPane scrollPane_1 = new JScrollPane();
+//		scrollPane_1.setBounds(10, 269, 381, 185);
+//		getContentPane().add(scrollPane_1);
 		
-		tblEspecProf = new JTable();
-		tblEspecProf.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				btnExcluirEspec.setEnabled(true);
-				btnAdicionarEspec.setEnabled(true);
-				
-			}
-		});
-		tblEspecProf.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tblEspecProf.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Especialidades"
-			}
-		));
-		scrollPane_1.setViewportView(tblEspecProf);
+//		tblEspecProf = new JTable();
+//		tblEspecProf.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				btnExcluirEspec.setEnabled(true);
+//				btnAdicionarEspec.setEnabled(true);
+//				
+//			}
+//		});
+//		tblEspecProf.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//		tblEspecProf.setModel(new DefaultTableModel(
+//			new Object[][] {
+//			},
+//			new String[] {
+//				"Especialidades"
+//			}
+//		));
+//		scrollPane_1.setViewportView(tblEspecProf);
 		
-		btnAdicionarEspec = new JButton("Adicionar");
-		btnAdicionarEspec.setEnabled(false);
-		btnAdicionarEspec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAdicionarEspec.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Chamando o método adicionar especialiadade
-				 adicionarEspecialidade();
-			}
-		});
-		btnAdicionarEspec.setBounds(10, 460, 86, 20);
-		getContentPane().add(btnAdicionarEspec);
+//		btnAdicionarEspec = new JButton("Adicionar");
+//		btnAdicionarEspec.setEnabled(false);
+//		btnAdicionarEspec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		btnAdicionarEspec.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				//Chamando o método adicionar especialiadade
+//				 //adicionarEspecialidade();
+//			}
+//		});
+//		btnAdicionarEspec.setBounds(10, 460, 86, 20);
+//		getContentPane().add(btnAdicionarEspec);
 		
 		btnIncluirProf = new JButton("Incluir Profissional");
 		btnIncluirProf.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -250,23 +257,29 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		getContentPane().add(txtPesquisarProf);
 		txtPesquisarProf.setColumns(10);
 		
-		btnExcluirEspec = new JButton("Excluir");
-		btnExcluirEspec.setEnabled(false);
-		btnExcluirEspec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnExcluirEspec.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Chamando o método excluir espec
-				excluirEspecialidade();
-			}
-		});
-		btnExcluirEspec.setBounds(98, 460, 86, 20);
-		getContentPane().add(btnExcluirEspec);
+//		btnExcluirEspec = new JButton("Excluir");
+//		btnExcluirEspec.setEnabled(false);
+//		btnExcluirEspec.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+//		btnExcluirEspec.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				//Chamando o método excluir espec
+//				//excluirEspecialidade();
+//			}
+//		});
+//		btnExcluirEspec.setBounds(98, 460, 86, 20);
+//		getContentPane().add(btnExcluirEspec);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(480, 269, 442, 185);
+		scrollPane_2.setBounds(10, 269, 912, 156);
 		getContentPane().add(scrollPane_2);
 		
 		tblHorarioProf = new JTable();
+		tblHorarioProf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setarCamposHorario();
+			}
+		});
 		tblHorarioProf.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -282,15 +295,13 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		lblNewLabel_4.setBounds(738, 238, 184, 27);
 		getContentPane().add(lblNewLabel_4);
 		
-		JButton btnAdicionarHorario = new JButton("Adicionar Horario");
-		btnAdicionarHorario.setEnabled(false);
+		btnAdicionarHorario = new JButton("Adicionar");
 		btnAdicionarHorario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Chamando a função pesquisarHorario()
-				//pesquisarHorario();
+				salvarHorario();
 			}
 		});
-		btnAdicionarHorario.setBounds(480, 459, 133, 23);
+		btnAdicionarHorario.setBounds(665, 432, 81, 22);
 		getContentPane().add(btnAdicionarHorario);
 		
 		lblNewLabel_5 = new JLabel("");
@@ -298,6 +309,54 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		lblNewLabel_5.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/doutor.png")));
 		lblNewLabel_5.setBounds(782, 68, 128, 118);
 		getContentPane().add(lblNewLabel_5);
+		
+		cboDiaSemana = new JComboBox();
+		cboDiaSemana.setModel(new DefaultComboBoxModel(new String[] {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"}));
+		cboDiaSemana.setBounds(170, 432, 162, 22);
+		getContentPane().add(cboDiaSemana);
+		
+		lblNewLabel_6 = new JLabel("Horário Início:");
+		lblNewLabel_6.setBounds(337, 436, 69, 14);
+		getContentPane().add(lblNewLabel_6);
+		
+		txtHoraInicio = new JTextField();
+		txtHoraInicio.setBounds(411, 433, 80, 20);
+		getContentPane().add(txtHoraInicio);
+		txtHoraInicio.setColumns(10);
+		
+		JLabel lblNewLabel_7 = new JLabel("Horário Final:");
+		lblNewLabel_7.setBounds(501, 436, 65, 14);
+		getContentPane().add(lblNewLabel_7);
+		
+		txtHoraFim = new JTextField();
+		txtHoraFim.setBounds(576, 433, 80, 20);
+		getContentPane().add(txtHoraFim);
+		txtHoraFim.setColumns(10);
+		
+		btnExcluirHorario = new JButton("Excluir");
+		btnExcluirHorario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				excluirHorario();
+			}
+		});
+		btnExcluirHorario.setEnabled(false);
+		btnExcluirHorario.setBounds(847, 432, 75, 22);
+		getContentPane().add(btnExcluirHorario);
+		
+		btnAtualizarHorario = new JButton("Atualizar");
+		btnAtualizarHorario.setEnabled(false);
+		btnAtualizarHorario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizarHorario();
+			}
+		});
+		btnAtualizarHorario.setBounds(755, 432, 82, 22);
+		getContentPane().add(btnAtualizarHorario);
+		
+		cboEspecialidade = new JComboBox();
+		cboEspecialidade.setModel(new DefaultComboBoxModel(new String[] {"Ecocardiograma", "Eletrocardiograma", "Ergometrico", "Holter 24"}));
+		cboEspecialidade.setBounds(10, 432, 150, 22);
+		getContentPane().add(cboEspecialidade);
 	} 
 
 	
@@ -309,7 +368,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		btnAtualizarProf.setEnabled(true);
 		btnExcluirProf.setEnabled(true);
 		btnIncluirProf.setEnabled(false);
-		pesquisarEspecialidade();
+		//pesquisarEspecialidade();
 		pesquisarHorario();
 
 	}
@@ -317,12 +376,12 @@ public class TelaCadastroProfissional extends JInternalFrame {
 	public void limparCampos(){
 		txtIdProf.setText(null);
 		txtNomeProf.setText(null);
-		tblEspecProf.setModel(new DefaultTableModel(
-				new Object[][] {},
-				new String[] {
-					"Especialidades"
-				}
-		));
+//		tblEspecProf.setModel(new DefaultTableModel(
+//				new Object[][] {},
+//				new String[] {
+//					"Especialidades"
+//				}
+//		));
 		tblHorarioProf.setModel(new DefaultTableModel(
 				new Object[][] {},
 				new String[] {
@@ -370,36 +429,93 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		pesquisarProfissional();
 	}
 	
-	private void pesquisarEspecialidade() {
-		ProfissionalController profissionalController = new ProfissionalController();
-		ResultSet rs = profissionalController.pesquisaEspecialidadeProfissional(TelaCadastroProfissional.this);
-		tblEspecProf.setModel(DbUtils.resultSetToTableModel(rs));
-		btnAdicionarEspec.setEnabled(true);
+//	private void pesquisarEspecialidade() {
+//		ProfissionalController profissionalController = new ProfissionalController();
+//		ResultSet rs = profissionalController.pesquisaEspecialidadeProfissional(TelaCadastroProfissional.this);
+//		tblEspecProf.setModel(DbUtils.resultSetToTableModel(rs));
+//		btnAdicionarEspec.setEnabled(true);
+//		
+//	}
+//	
+//	private void adicionarEspecialidade() {
+//		  Object[] exames = { "Ecocardiograma", "Eletrocardiograma", "Ergométrico", "Holter24"};
+//	      Object exameSelecionado = JOptionPane.showInputDialog(null,"Escolha um exame", "Opção", JOptionPane.INFORMATION_MESSAGE, null, exames, exames [0]);
+//	      ProfissionalController profissionalController = new ProfissionalController();
+//	      if(exameSelecionado != null) {
+//	    	  profissionalController.salvarEspecialidade(txtIdProf.getText(), exameSelecionado.toString());
+//	      }
+//	      pesquisarEspecialidade();
+//	      btnExcluirEspec.setEnabled(false);
+//	}
+//	
+//	private void excluirEspecialidade() {
+//		int setar = tblEspecProf.getSelectedRow();
+//		String especialidade = tblEspecProf.getModel().getValueAt(setar, 0).toString();
+//		String idProf = txtIdProf.getText();
+//		ProfissionalController profissionalController = new ProfissionalController();
+//		profissionalController.excluirEspecialidade(idProf, especialidade);
+//		pesquisarEspecialidade();
+//		btnExcluirEspec.setEnabled(false);
+//	}
+	
+	
+	public void limparFormHorario() {
+		cboDiaSemana.setSelectedIndex(0);
+		txtHoraInicio.setText(null);
+		txtHoraFim.setText(null);
+	}
+	
+	
+	public void setarCamposHorario() {
+		int setar = tblHorarioProf.getSelectedRow();
+		String exame = tblHorarioProf.getModel().getValueAt(setar, 0).toString();
+		if(exame.equals("Ecocardiograma")) {
+			cboEspecialidade.setSelectedIndex(0);
+		} else if(exame.equals("Eletrocardiograma")) {
+			cboEspecialidade.setSelectedIndex(1);
+		} else if(exame.equals("Ergometrico")) {
+			cboEspecialidade.setSelectedIndex(2);
+		} else if(exame.equals("Holter 24")) {
+			cboEspecialidade.setSelectedIndex(3);
+		}
+		String diaSemana = tblHorarioProf.getModel().getValueAt(setar, 1).toString();
+		if(diaSemana.equals("Segunda")) {
+			cboDiaSemana.setSelectedIndex(0);
+		} else if(diaSemana.equals("Terça")) {
+			cboDiaSemana.setSelectedIndex(1);
+		} else if(diaSemana.equals("Quarta")) {
+			cboDiaSemana.setSelectedIndex(2);
+		} else if(diaSemana.equals("Quinta")) {
+			cboDiaSemana.setSelectedIndex(3);
+		} else if(diaSemana.equals("Sexta")) {
+			cboDiaSemana.setSelectedIndex(4);
+		} else if(diaSemana.equals("Sábado")) {
+			cboDiaSemana.setSelectedIndex(5);
+		}
+		String horaInicio = tblHorarioProf.getModel().getValueAt(setar, 2).toString();
+		String horaFim = tblHorarioProf.getModel().getValueAt(setar, 3).toString();
 		
-	}
-	
-	private void adicionarEspecialidade() {
-		Object[] exames = { "Ecocardiograma", "Eletrocardiograma", "Ergométrico", "Holter24"};
-	      Object exameSelecionado = JOptionPane.showInputDialog(null,"Escolha um exame", "Opção", JOptionPane.INFORMATION_MESSAGE, null, exames, exames [0]);
-	      ProfissionalController profissionalController = new ProfissionalController();
-	      if(exameSelecionado != null) {
-	    	  profissionalController.salvarEspecialidade(txtIdProf.getText(), exameSelecionado.toString());
-	      }  
-	      pesquisarEspecialidade();
-	      btnExcluirEspec.setEnabled(false);
-	}
-	
-	private void excluirEspecialidade() {
-		int setar = tblEspecProf.getSelectedRow();
-		String especialidade = tblEspecProf.getModel().getValueAt(setar, 0).toString();
-		String idProf = txtIdProf.getText();
-		ProfissionalController profissionalController = new ProfissionalController();
-		profissionalController.excluirEspecialidade(idProf, especialidade);
-		pesquisarEspecialidade();
-		btnExcluirEspec.setEnabled(false);
+		
+		
+		
+		txtHoraInicio.setText(horaInicio);
+		txtHoraFim.setText(horaFim);
+		btnAdicionarHorario.setEnabled(false);
+		btnExcluirHorario.setEnabled(true);
+		btnAtualizarHorario.setEnabled(true);
 	}
 	
 	
+	public JTable getTblHorarioProf() {
+		return tblHorarioProf;
+	}
+
+
+	public void setTblHorarioProf(JTable tblHorarioProf) {
+		this.tblHorarioProf = tblHorarioProf;
+	}
+
+
 	private void pesquisarHorario() {
 		ProfissionalController profissionalController = new ProfissionalController();
 		ResultSet rs = profissionalController.pesquisaHorarioProfissional(TelaCadastroProfissional.this);
@@ -407,7 +523,47 @@ public class TelaCadastroProfissional extends JInternalFrame {
 	}
 	
 	
+	private void salvarHorario() {
+		ProfissionalController profissionalController = new ProfissionalController();
+		profissionalController.salvarHorarioProfissional(TelaCadastroProfissional.this);
+		pesquisarHorario();
+		limparFormHorario();
+	}
 	
+	private void atualizarHorario() {
+		ProfissionalController profissionalController = new ProfissionalController();
+		profissionalController.atualizarHorarioProfissional(TelaCadastroProfissional.this);
+		pesquisarHorario();
+		btnAdicionarHorario.setEnabled(true);
+		btnExcluirHorario.setEnabled(false);
+		btnAtualizarHorario.setEnabled(false);
+		limparFormHorario();
+	}
+	
+	private void excluirHorario() {
+		ProfissionalController profissionalController = new ProfissionalController();
+		profissionalController.excluirHorarioProfissional(TelaCadastroProfissional.this);
+		pesquisarHorario();
+		limparFormHorario();
+		btnAdicionarHorario.setEnabled(true);
+		btnExcluirHorario.setEnabled(false);
+		btnAtualizarHorario.setEnabled(false);
+		
+	}
+	
+	
+	
+
+	public JComboBox getCboEspecialidade() {
+		return cboEspecialidade;
+	}
+
+
+	public void setCboEspecialidade(JComboBox cboEspecialidade) {
+		this.cboEspecialidade = cboEspecialidade;
+	}
+
+
 	public JTextField getTxtIdProf() {
 			return txtIdProf;
 		}
@@ -430,5 +586,35 @@ public class TelaCadastroProfissional extends JInternalFrame {
 
 	public void setTxtPesquisarProf(JTextField txtPesquisarProf) {
 		this.txtPesquisarProf = txtPesquisarProf;
+	}
+
+
+	public JTextField getTxtHoraInicio() {
+		return txtHoraInicio;
+	}
+
+
+	public void setTxtHoraInicio(JTextField txtHoraInicio) {
+		this.txtHoraInicio = txtHoraInicio;
+	}
+
+
+	public JTextField getTxtHoraFim() {
+		return txtHoraFim;
+	}
+
+
+	public void setTxtHoraFim(JTextField txtHoraFim) {
+		this.txtHoraFim = txtHoraFim;
+	}
+
+
+	public JComboBox getCboDiaSemana() {
+		return cboDiaSemana;
+	}
+
+
+	public void setCboDiaSemana(JComboBox cboDiaSemana) {
+		this.cboDiaSemana = cboDiaSemana;
 	}
 }

@@ -39,6 +39,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.BevelBorder;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.event.MouseMotionAdapter;
 
 
 public class TelaCadastroPaciente extends JInternalFrame {
@@ -155,36 +156,32 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		txtPeso.setColumns(10);
 		
 		
-		formatadorData = new MaskFormatter("##/##/####"); //Cria um padrao para o campo data e atribui apenas numeros para serem digitados
-		formatadorData.setValidCharacters("0123456789");
+		formatadorData = new MaskFormatter("**/**/****"); //Cria um padrao para o campo data e atribui apenas numeros para serem digitados
+		formatadorData.setPlaceholderCharacter(' ');
 		txtDataNascimento = new JFormattedTextField(formatadorData);
 		txtDataNascimento.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		txtDataNascimento.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDataNascimento.setBounds(182, 401, 148, 27);
 		getContentPane().add(txtDataNascimento);
 				
 				
 		formatadorRg = new MaskFormatter("#########");
-		formatadorRg.setValidCharacters("0123456789 ");	
+		formatadorRg.setPlaceholderCharacter(' ');
 		txtRG = new JFormattedTextField(formatadorRg);
 		txtRG.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		txtRG.setHorizontalAlignment(SwingConstants.CENTER);
 		txtRG.setBounds(182, 357, 148, 27);
 		getContentPane().add(txtRG);
 						
-		formatadorTelefone = new MaskFormatter("########");
-		formatadorTelefone.setValidCharacters("0123456789");
+		formatadorTelefone = new MaskFormatter("****-****");
+		formatadorTelefone.setPlaceholderCharacter('_');
 		txtTelefone = new JFormattedTextField(formatadorTelefone);
 		txtTelefone.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		txtTelefone.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTelefone.setBounds(449, 363, 148, 27);
 		getContentPane().add(txtTelefone);
 	
-		formatadorCel = new MaskFormatter("(##)#####-####");
-		formatadorCel.setValidCharacters("0123456789");
+		formatadorCel = new MaskFormatter("(**)*****-****");
+		formatadorCel.setPlaceholderCharacter('_');
 		txtCelular = new JFormattedTextField(formatadorCel);
 		txtCelular.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		txtCelular.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCelular.setBounds(695, 363, 174, 27);
 		getContentPane().add(txtCelular);
 		txtCelular.setColumns(10);
@@ -268,10 +265,18 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		
 		//Tabela
 		tbPacientes = new JTable();
+		tbPacientes.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				limparCampos();
+				setarCampos();
+			}
+		});
 		tbPacientes.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		tbPacientes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				limparCampos();
 				setarCampos();
 			}
 		});

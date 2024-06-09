@@ -15,10 +15,6 @@ public class ProfissionalDao {
 	PreparedStatement pst = null;
 	ResultSet rs = null;
 	
-	
-	
-	
-	
 	public ResultSet selectProfissionais(JTextField campoPesquisa) {
 		//Query que será executada no banco de dados
 		String sql= "select * from profissionais where nomeProfissional like ?";
@@ -35,22 +31,6 @@ public class ProfissionalDao {
 			return null;
 		}
 	}
-	
-	
-	public ResultSet selectEspecialidades(JTextField campoId) {
-		//Query que será executada no banco de dados
-		String sql= "select nomeEspecialidade as Especialidade from especialidadeProfissional where idProfissional = ?";
-		try {
-			pst = conexao.prepareStatement(sql);
-			pst.setString(1, campoId.getText());
-			rs = pst.executeQuery();
-			return rs;
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e);
-			return null;
-		}
-	}
-	
 	
 	public void createProfissional(String nomeProfissional) {
 		String sql = "insert into profissionais (nomeProfissional) values (?)";
@@ -124,34 +104,46 @@ public class ProfissionalDao {
 		}
 	}
 	
+//	public ResultSet selectEspecialidades(JTextField campoId) {
+//		//Query que será executada no banco de dados
+//		String sql= "select nomeEspecialidade as Especialidade from especialidadeProfissional where idProfissional = ?";
+//		try {
+//			pst = conexao.prepareStatement(sql);
+//			pst.setString(1, campoId.getText());
+//			rs = pst.executeQuery();
+//			return rs;
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, e);
+//			return null;
+//		}
+//	}
 	
-	public void createEspecialidade(String idprof, String espec) {
-		String sql= "insert into especialidadeProfissional(idProfissional,nomeEspecialidade) values(?,?)";
-		try {
-			pst = conexao.prepareStatement(sql);
-			pst.setString(1, idprof);
-			pst.setString(2, espec);
-			pst.executeUpdate();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Um profissional não pode conter duas especialidade iguais!");
-		}
-	}
+//	public void createEspecialidade(String idprof, String espec) {
+//		String sql= "insert into especialidadeProfissional(idProfissional,nomeEspecialidade) values(?,?)";
+//		try {
+//			pst = conexao.prepareStatement(sql);
+//			pst.setString(1, idprof);
+//			pst.setString(2, espec);
+//			pst.executeUpdate();
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, "Um profissional não pode conter duas especialidade iguais!");
+//		}
+//	}
+//	
+//	public void deleteEspecialidade(String idProf,String espec) {
+//		String sql= "delete from especialidadeProfissional where idprofissional = ? and nomeEspecialidade = ?";
+//		try {
+//			pst = conexao.prepareStatement(sql);
+//			pst.setString(1, idProf);
+//			pst.setString(2, espec);
+//			pst.executeUpdate();
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null,e);
+//		}
+//	}
 	
-	public void deleteEspecialidade(String idProf,String espec) {
-		String sql= "delete from especialidadeProfissional where idprofissional = ? and nomeEspecialidade = ?";
-		try {
-			pst = conexao.prepareStatement(sql);
-			pst.setString(1, idProf);
-			pst.setString(2, espec);
-			pst.executeUpdate();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,e);
-		}
-	}
-	
-	
-	public ResultSet createHorario(String idProf) {
-		String sql= "select diaSemana as 'Dia da Semana', horaInicio as 'Início', horaFim as 'Fim' from horarioProfissional where idProfissional = ?";
+	public ResultSet SelectHorario(String idProf) {
+		String sql= "select nomeEspecialidade as 'Exame', diaSemana as 'Dia da Semana', horaInicio as 'Início', horaFim as 'Fim' from horarioProfissional where idProfissional = ?";
 		try {
 			pst = conexao.prepareStatement(sql);
 			pst.setString(1, idProf);
@@ -163,5 +155,48 @@ public class ProfissionalDao {
 		}
 	}
 	
+	public void insertHorario(String idProfissional,String especialidade, String diaSemana, String horarioInicio, String horarioFim) {
+		String sql= "insert into horarioProfissional (idProfissional, nomeEspecialidade, diaSemana, horaInicio, horaFim) values (?,?,?,?,?)";
+		try {
+			pst = conexao.prepareStatement(sql);
+			pst.setString(1, idProfissional);
+			pst.setString(2, especialidade);
+			pst.setString(3, diaSemana);
+			pst.setString(4, horarioInicio);
+			pst.setString(5, horarioFim);
+			pst.executeUpdate();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
+	}
+	
+	public void updateHorario(String idProfissional, String especialidade, String diaSemana, String horarioInicio, String horarioFim, String diaSelecionado) {
+		String sql= "update horarioProfissional set nomeEspecialidade=?, diaSemana=?, horaInicio=?, horaFim=?  where idProfissional = ? and diaSemana = ?";
+		try {
+			pst = conexao.prepareStatement(sql);
+			pst.setString(1, especialidade);
+			pst.setString(2, diaSemana);
+			pst.setString(3, horarioInicio);
+			pst.setString(4, horarioFim);
+			pst.setString(5, idProfissional);
+			pst.setString(6, diaSelecionado);
+			pst.executeUpdate();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		}
+	}
+	
+	public void deleteHorario(String idProfissional, String diaSelecionado) {
+		String sql= "delete from horarioProfissional where idprofissional = ? and diaSemana =?";
+		try {
+			pst = conexao.prepareStatement(sql);
+			pst.setString(1, idProfissional);
+			pst.setString(2, diaSelecionado);
+			pst.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+			JOptionPane.showMessageDialog(null, "Ja existe um horário agendado para este dia!");
+		}
+	}
 	
 }
