@@ -2,9 +2,9 @@ package modelo.entidade;
 
 public class AgendamentoConsulta {
 	
-	private String pacienteExame, emailPaciente, telefonePaciente, celularPaciente, ProfResponsavel, dataRealizacao, horaRealizacao, ObsExames;
+	private String pacienteExame, emailPaciente, telefonePaciente, celularPaciente, ProfResponsavel, dataRealizacao, horaRealizacao, statusConsulta, ObsExames;
 	
-	public AgendamentoConsulta(String pacExame, String emailPac, String telPac, String celPac,String profResp, String dataReal, String horaReal, String obsExames) {
+	public AgendamentoConsulta(String pacExame, String emailPac, String telPac, String celPac,String profResp, String dataReal, String horaReal, String statusConsulta, String obsExames) {
 		this.pacienteExame = pacExame;
 		this.emailPaciente = emailPac;
 		this.telefonePaciente = telPac;
@@ -12,6 +12,7 @@ public class AgendamentoConsulta {
 		this.ProfResponsavel = profResp;
 		this.dataRealizacao = dataReal;
 		this.horaRealizacao = horaReal;
+		this.statusConsulta = statusConsulta;
 		this.ObsExames = obsExames;
 	}
 
@@ -21,6 +22,30 @@ public class AgendamentoConsulta {
 
 	public void setPacienteExame(String pacienteExame) {
 		this.pacienteExame = pacienteExame;
+	}
+
+	public String getEmailPaciente() {
+		return emailPaciente;
+	}
+
+	public void setEmailPaciente(String emailPaciente) {
+		this.emailPaciente = emailPaciente;
+	}
+
+	public String getTelefonePaciente() {
+		return telefonePaciente;
+	}
+
+	public void setTelefonePaciente(String telefonePaciente) {
+		this.telefonePaciente = telefonePaciente;
+	}
+
+	public String getCelularPaciente() {
+		return celularPaciente;
+	}
+
+	public void setCelularPaciente(String celularPaciente) {
+		this.celularPaciente = celularPaciente;
 	}
 
 	public String getProfResponsavel() {
@@ -47,6 +72,14 @@ public class AgendamentoConsulta {
 		this.horaRealizacao = horaRealizacao;
 	}
 
+	public String getStatusConsulta() {
+		return statusConsulta;
+	}
+
+	public void setStatusConsulta(String statusConsulta) {
+		this.statusConsulta = statusConsulta;
+	}
+
 	public String getObsExames() {
 		return ObsExames;
 	}
@@ -55,27 +88,9 @@ public class AgendamentoConsulta {
 		ObsExames = obsExames;
 	}
 
-	public String getEmailPaciente() {
-		return emailPaciente;
-	}
-
-	public void setEmailPaciente(String emailPaciente) {
-		this.emailPaciente = emailPaciente;
-	}
-
-	public String getTelefonePaciente() {
-		return telefonePaciente;
-	}
-
-	public void setTelefonePaciente(String telefonePaciente) {
-		this.telefonePaciente = telefonePaciente;
-	}
-
-	public String getCelularPaciente() {
-		return celularPaciente;
-	}
-
-	public void setCelularPaciente(String celularPaciente) {
-		this.celularPaciente = celularPaciente;
-	}	
+	
+	
+	
+	
+	
 }

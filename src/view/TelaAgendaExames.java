@@ -5,12 +5,29 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import controller.AgendaExamesController;
+import modelo.entidade.AgendamentoConsulta;
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JTextPane;
 
 public class TelaAgendaExames extends JInternalFrame {
 
@@ -20,8 +37,13 @@ public class TelaAgendaExames extends JInternalFrame {
 	private JTextField txtCelularPaciente;
 	private JTextField txtDataRealizacao;
 	private JTextField txtHorarioRealizacao;
-	private JTextField txtObs;
 	private JTable tblAgendamentos;
+	private JComboBox cboNomePaciente;
+	private JComboBox cboProfissionalResponsavel;
+	private JComboBox cboStatusConsulta;
+	private JTextPane txtObs;
+	private JTextField txtIdAgendamento;
+	private JTable tblHorariosProf;
 
 	/**
 	 * Launch the application.
@@ -43,6 +65,12 @@ public class TelaAgendaExames extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaAgendaExames() {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameOpened(InternalFrameEvent e) {
+				selectPacientes();
+			}
+		});
 		setMaximizable(true);
 		getContentPane().setBackground(new Color(227, 227, 227));
 		setTitle("Agenda de exames");
@@ -57,7 +85,7 @@ public class TelaAgendaExames extends JInternalFrame {
 		lblnomePaciente.setBounds(10, 342, 134, 14);
 		getContentPane().add(lblnomePaciente);
 		
-		JComboBox cboNomePaciente = new JComboBox();
+		cboNomePaciente = new JComboBox();
 		cboNomePaciente.setBounds(10, 368, 315, 22);
 		getContentPane().add(cboNomePaciente);
 		
@@ -92,13 +120,24 @@ public class TelaAgendaExames extends JInternalFrame {
 		getContentPane().add(lblCelularPaciente);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 46, 912, 285);
+		scrollPane.setBounds(10, 46, 912, 258);
 		getContentPane().add(scrollPane);
 		
 		tblAgendamentos = new JTable();
+		tblAgendamentos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setarCampos();
+			}
+		});
 		scrollPane.setViewportView(tblAgendamentos);
 		
-		JComboBox cboProfissionalResponsavel = new JComboBox();
+		cboProfissionalResponsavel = new JComboBox();
+		cboProfissionalResponsavel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectHorarioProf();
+			}
+		});
 		cboProfissionalResponsavel.setBounds(10, 424, 315, 22);
 		getContentPane().add(cboProfissionalResponsavel);
 		
@@ -129,25 +168,250 @@ public class TelaAgendaExames extends JInternalFrame {
 		
 		JLabel lblObs = new JLabel("Observações e exames da consulta");
 		lblObs.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		lblObs.setBounds(10, 457, 274, 14);
+		lblObs.setBounds(347, 456, 274, 14);
 		getContentPane().add(lblObs);
 		
-		txtObs = new JTextField();
-		txtObs.setColumns(10);
-		txtObs.setBounds(10, 482, 912, 96);
-		getContentPane().add(txtObs);
-		
 		JButton btnNewButton = new JButton("Cadastrar Agendamento");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				insertConsultas();
+			}
+		});
 		btnNewButton.setBounds(10, 605, 151, 23);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnAtualizarAgendamento = new JButton("Atualizar Agendamento");
+		btnAtualizarAgendamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateConsultas();
+			}
+		});
 		btnAtualizarAgendamento.setBounds(405, 605, 151, 23);
 		getContentPane().add(btnAtualizarAgendamento);
 		
 		JButton btnExcluirAgendamento = new JButton("Excluir Agendamento");
+		btnExcluirAgendamento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int confirma = JOptionPane.showConfirmDialog(null,"Deseja Prosseguir com a exclusão?", "Atenção", JOptionPane.YES_NO_OPTION);
+				if(confirma==JOptionPane.YES_OPTION) {
+					deleteConsultas();
+				}
+			}
+		});
 		btnExcluirAgendamento.setBounds(771, 605, 151, 23);
 		getContentPane().add(btnExcluirAgendamento);
+		
+		cboStatusConsulta = new JComboBox();
+		cboStatusConsulta.setModel(new DefaultComboBoxModel(new String[] {"Em aberto", "Realizado"}));
+		cboStatusConsulta.setBounds(715, 424, 156, 22);
+		getContentPane().add(cboStatusConsulta);
+		
+		JLabel lblStatusConsulta = new JLabel("Status da Consulta");
+		lblStatusConsulta.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblStatusConsulta.setBounds(715, 404, 156, 14);
+		getContentPane().add(lblStatusConsulta);
+		
+		txtObs = new JTextPane();
+		txtObs.setBounds(347, 483, 533, 94);
+		getContentPane().add(txtObs);
+		
+		JLabel lblIdAgendamento = new JLabel("Agendamento N");
+		lblIdAgendamento.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		lblIdAgendamento.setBounds(13, 311, 123, 20);
+		getContentPane().add(lblIdAgendamento);
+		
+		txtIdAgendamento = new JTextField();
+		txtIdAgendamento.setEditable(false);
+		txtIdAgendamento.setEnabled(false);
+		txtIdAgendamento.setColumns(10);
+		txtIdAgendamento.setBounds(142, 308, 96, 20);
+		getContentPane().add(txtIdAgendamento);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 457, 315, 121);
+		getContentPane().add(scrollPane_1);
+		
+		tblHorariosProf = new JTable();
+		tblHorariosProf.setEnabled(false);
+		scrollPane_1.setViewportView(tblHorariosProf);
 
 	}	
+	
+	
+	public void selectPacientes() {
+		AgendaExamesController agendaExames = new AgendaExamesController();
+		agendaExames.selectPacientesProfissionais(TelaAgendaExames.this);
+		selectConsultas();
+	}
+	
+	public void selectConsultas() {
+		AgendaExamesController agendaController = new AgendaExamesController();
+		ResultSet rs = agendaController.buscarAgendamentos();
+		tblAgendamentos.setModel(DbUtils.resultSetToTableModel(rs));
+		
+	}
+	
+	public void setarCampos() {
+		int linhaSelecionada =  tblAgendamentos.getSelectedRow();
+		String nomePessoaSelecionada = tblAgendamentos.getModel().getValueAt(linhaSelecionada, 1).toString();
+		String nomeProfissionalSelecionado = tblAgendamentos.getModel().getValueAt(linhaSelecionada, 5).toString();
+		
+		for(int i = 0; i < cboNomePaciente.getModel().getSize(); i++) {
+			if(cboNomePaciente.getModel().getElementAt(i).toString().equals(nomePessoaSelecionada)) {
+				cboNomePaciente.getModel().setSelectedItem(nomePessoaSelecionada);
+				break;
+			}	
+		}
+		
+		for(int i = 0; i < cboProfissionalResponsavel.getModel().getSize(); i++) {
+			if(cboProfissionalResponsavel.getModel().getElementAt(i).toString().equals(nomeProfissionalSelecionado)) {
+				cboProfissionalResponsavel.getModel().setSelectedItem(nomeProfissionalSelecionado);
+				break;
+			}	
+		}
+		
+		
+		String statusSelecionado = tblAgendamentos.getModel().getValueAt(linhaSelecionada, 8).toString();
+		
+		for(int i = 0; i < cboStatusConsulta.getModel().getSize(); i++) {
+			if(cboStatusConsulta.getModel().getElementAt(i).toString().equals(statusSelecionado)) {
+				cboStatusConsulta.getModel().setSelectedItem(statusSelecionado);
+				break;
+			}
+		}
+		
+		txtEmailPaciente.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 2).toString());
+		txtTelefonePaciente.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 3).toString());
+		txtCelularPaciente.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 4).toString());
+		txtDataRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 6).toString());
+		txtDataRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 4).toString());
+		txtHorarioRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 7).toString());
+		txtObs.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 9).toString());
+		txtIdAgendamento.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 0).toString());
+	}
+	
+	
+	
+	
+
+	public void insertConsultas() {
+		AgendamentoConsulta agendamento = new AgendamentoConsulta(
+				cboNomePaciente.getSelectedItem().toString(),
+				txtEmailPaciente.getText(),
+				txtTelefonePaciente.getText(),
+				txtCelularPaciente.getText(),
+				cboProfissionalResponsavel.getSelectedItem().toString(),
+				txtDataRealizacao.getText(),
+				txtHorarioRealizacao.getText(),
+				cboStatusConsulta.getSelectedItem().toString(),
+				txtObs.getText()
+				);
+	
+		AgendaExamesController agendaExame = new AgendaExamesController();
+		agendaExame.salvarAgendamento(agendamento);
+		selectConsultas();
+	}
+	
+	public void updateConsultas() {
+		AgendamentoConsulta agendamento = new AgendamentoConsulta(
+					cboNomePaciente.getSelectedItem().toString(),
+					txtEmailPaciente.getText(),
+					txtTelefonePaciente.getText(),
+					txtCelularPaciente.getText(),
+					cboProfissionalResponsavel.getSelectedItem().toString(),
+					txtDataRealizacao.getText(),
+					txtHorarioRealizacao.getText(),
+					cboStatusConsulta.getSelectedItem().toString(),
+					txtObs.getText()
+				);
+		
+		
+		String idAgendamento = txtIdAgendamento.getText();
+		AgendaExamesController agendaExame = new AgendaExamesController();
+		agendaExame.updateAgendamentos(agendamento, idAgendamento);
+		selectConsultas();
+	}
+	
+	public void deleteConsultas() {
+		
+		String idAgendamento = txtIdAgendamento.getText();
+		AgendaExamesController agendaExame = new AgendaExamesController();
+		agendaExame.deleteAgendamentos(idAgendamento);
+		selectConsultas();
+	}
+	
+	public void selectHorarioProf() {
+		String nomeProf = cboProfissionalResponsavel.getSelectedItem().toString();
+		AgendaExamesController agendaExame = new AgendaExamesController();
+		ResultSet rs = agendaExame.selectHorarioProfissional(nomeProf);
+		tblHorariosProf.setModel(DbUtils.resultSetToTableModel(rs));
+	}
+	
+	
+	
+	public JTextField getTxtEmailPaciente() {
+		return txtEmailPaciente;
+	}
+
+	public void setTxtEmailPaciente(JTextField txtEmailPaciente) {
+		this.txtEmailPaciente = txtEmailPaciente;
+	}
+
+	public JTextField getTxtTelefonePaciente() {
+		return txtTelefonePaciente;
+	}
+
+	public void setTxtTelefonePaciente(JTextField txtTelefonePaciente) {
+		this.txtTelefonePaciente = txtTelefonePaciente;
+	}
+
+	public JTextField getTxtCelularPaciente() {
+		return txtCelularPaciente;
+	}
+
+	public void setTxtCelularPaciente(JTextField txtCelularPaciente) {
+		this.txtCelularPaciente = txtCelularPaciente;
+	}
+
+	public JTextField getTxtDataRealizacao() {
+		return txtDataRealizacao;
+	}
+
+	public void setTxtDataRealizacao(JTextField txtDataRealizacao) {
+		this.txtDataRealizacao = txtDataRealizacao;
+	}
+
+	public JTextField getTxtHorarioRealizacao() {
+		return txtHorarioRealizacao;
+	}
+
+	public void setTxtHorarioRealizacao(JTextField txtHorarioRealizacao) {
+		this.txtHorarioRealizacao = txtHorarioRealizacao;
+	}
+
+	
+
+	public JTable getTblAgendamentos() {
+		return tblAgendamentos;
+	}
+
+	public void setTblAgendamentos(JTable tblAgendamentos) {
+		this.tblAgendamentos = tblAgendamentos;
+	}
+
+	public JComboBox getCboNomePaciente() {
+		return cboNomePaciente;
+	}
+
+	public void setCboNomePaciente(JComboBox cboNomePaciente) {
+		this.cboNomePaciente = cboNomePaciente;
+	}
+
+	public JComboBox getCboProfissionalResponsavel() {
+		return cboProfissionalResponsavel;
+	}
+
+	public void setCboProfissionalResponsavel(JComboBox cboProfissionalResponsavel) {
+		this.cboProfissionalResponsavel = cboProfissionalResponsavel;
+	}
 }
