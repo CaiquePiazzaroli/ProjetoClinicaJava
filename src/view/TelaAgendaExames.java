@@ -28,6 +28,8 @@ import javax.swing.event.InternalFrameEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.ListSelectionModel;
 
 public class TelaAgendaExames extends JInternalFrame {
 
@@ -124,6 +126,13 @@ public class TelaAgendaExames extends JInternalFrame {
 		getContentPane().add(scrollPane);
 		
 		tblAgendamentos = new JTable();
+		tblAgendamentos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tblAgendamentos.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				setarCampos();
+			}
+		});
 		tblAgendamentos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

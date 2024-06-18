@@ -105,11 +105,11 @@ public class TelaPrincipal extends JFrame {
 		mntmNewMenuItem_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menCad.add(mntmNewMenuItem_1);
 		
-		JMenu mnNewMenu = new JMenu("Consultas");
+		JMenu mnNewMenu = new JMenu("Consultas e Exames");
 		mnNewMenu.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menuBar.add(mnNewMenu);
 		
-		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agenda de exames");
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Agenda de Consultas");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TelaAgendaExames agendaExames = new TelaAgendaExames();
@@ -119,6 +119,18 @@ public class TelaPrincipal extends JFrame {
 		});
 		mntmNewMenuItem_2.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		mnNewMenu.add(mntmNewMenuItem_2);
+		
+		JMenuItem mntmNewMenuItem_2_1 = new JMenuItem("Exames Realizados");
+		mntmNewMenuItem_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaVisualizaExames telaExames = new TelaVisualizaExames();
+				telaExames.setVisible(true);
+				desktopPane.add(telaExames);
+				
+			}
+		});
+		mntmNewMenuItem_2_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		mnNewMenu.add(mntmNewMenuItem_2_1);
 		
 		JMenu menOpc = new JMenu("Opções");
 		menOpc.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
