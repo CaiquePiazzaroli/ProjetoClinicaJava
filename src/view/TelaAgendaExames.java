@@ -293,7 +293,6 @@ public class TelaAgendaExames extends JInternalFrame {
 		txtTelefonePaciente.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 3).toString());
 		txtCelularPaciente.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 4).toString());
 		txtDataRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 6).toString());
-		txtDataRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 4).toString());
 		txtHorarioRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 7).toString());
 		txtObs.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 9).toString());
 		txtIdAgendamento.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 0).toString());

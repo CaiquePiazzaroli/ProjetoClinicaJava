@@ -19,7 +19,7 @@ public class Conexao {
 		//Dados da base de dados
 		String url = "jdbc:mysql://localhost:3306/clinica";
 		String user = "root";
-		String password="Mysql@010203";
+		String password="010203";
 		
 		//Estabelecendo a conexao com o banco de dados
 		try {
