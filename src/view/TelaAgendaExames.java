@@ -30,6 +30,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTextPane;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
 
 public class TelaAgendaExames extends JInternalFrame {
 
@@ -46,6 +47,9 @@ public class TelaAgendaExames extends JInternalFrame {
 	private JTextPane txtObs;
 	private JTextField txtIdAgendamento;
 	private JTable tblHorariosProf;
+	private JButton btnAtualizarAgendamento ;
+	private JButton btnExcluirAgendamento;
+	private JButton btnCadastrarAgendamento;
 
 	/**
 	 * Launch the application.
@@ -67,6 +71,7 @@ public class TelaAgendaExames extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaAgendaExames() {
+		setFrameIcon(new ImageIcon(TelaAgendaExames.class.getResource("/icones/coracao25.png")));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
@@ -180,16 +185,17 @@ public class TelaAgendaExames extends JInternalFrame {
 		lblObs.setBounds(347, 456, 274, 14);
 		getContentPane().add(lblObs);
 		
-		JButton btnNewButton = new JButton("Cadastrar Agendamento");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnCadastrarAgendamento = new JButton("Cadastrar Agendamento");
+		btnCadastrarAgendamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertConsultas();
 			}
 		});
-		btnNewButton.setBounds(10, 605, 151, 23);
-		getContentPane().add(btnNewButton);
+		btnCadastrarAgendamento.setBounds(10, 605, 151, 23);
+		getContentPane().add(btnCadastrarAgendamento);
 		
-		JButton btnAtualizarAgendamento = new JButton("Atualizar Agendamento");
+		btnAtualizarAgendamento = new JButton("Atualizar Agendamento");
+		btnAtualizarAgendamento.setEnabled(false);
 		btnAtualizarAgendamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateConsultas();
@@ -198,7 +204,8 @@ public class TelaAgendaExames extends JInternalFrame {
 		btnAtualizarAgendamento.setBounds(405, 605, 151, 23);
 		getContentPane().add(btnAtualizarAgendamento);
 		
-		JButton btnExcluirAgendamento = new JButton("Excluir Agendamento");
+		btnExcluirAgendamento = new JButton("Excluir Agendamento");
+		btnExcluirAgendamento.setEnabled(false);
 		btnExcluirAgendamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int confirma = JOptionPane.showConfirmDialog(null,"Deseja Prosseguir com a exclusão?", "Atenção", JOptionPane.YES_NO_OPTION);
@@ -237,10 +244,12 @@ public class TelaAgendaExames extends JInternalFrame {
 		getContentPane().add(txtIdAgendamento);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setEnabled(false);
 		scrollPane_1.setBounds(10, 457, 315, 121);
 		getContentPane().add(scrollPane_1);
 		
 		tblHorariosProf = new JTable();
+		tblHorariosProf.setRowSelectionAllowed(false);
 		tblHorariosProf.setEnabled(false);
 		scrollPane_1.setViewportView(tblHorariosProf);
 
@@ -256,8 +265,7 @@ public class TelaAgendaExames extends JInternalFrame {
 	public void selectConsultas() {
 		AgendaExamesController agendaController = new AgendaExamesController();
 		ResultSet rs = agendaController.buscarAgendamentos();
-		tblAgendamentos.setModel(DbUtils.resultSetToTableModel(rs));
-		
+		tblAgendamentos.setModel(DbUtils.resultSetToTableModel(rs));		
 	}
 	
 	public void setarCampos() {
@@ -296,8 +304,21 @@ public class TelaAgendaExames extends JInternalFrame {
 		txtHorarioRealizacao.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 7).toString());
 		txtObs.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 9).toString());
 		txtIdAgendamento.setText(tblAgendamentos.getModel().getValueAt(linhaSelecionada, 0).toString());
+		btnAtualizarAgendamento.setEnabled(true);
+		btnExcluirAgendamento.setEnabled(true);
+		btnCadastrarAgendamento.setEnabled(false);
 	}
 	
+	
+	public void limparCampos() {
+		txtEmailPaciente.setText(null);
+		txtTelefonePaciente.setText(null);
+		txtCelularPaciente.setText(null);
+		txtDataRealizacao.setText(null);
+		txtHorarioRealizacao.setText(null);
+		txtObs.setText(null);
+		txtIdAgendamento.setText(null);
+	}
 	
 	
 	
@@ -317,7 +338,11 @@ public class TelaAgendaExames extends JInternalFrame {
 	
 		AgendaExamesController agendaExame = new AgendaExamesController();
 		agendaExame.salvarAgendamento(agendamento);
+		 limparCampos();
 		selectConsultas();
+		btnAtualizarAgendamento.setEnabled(false);
+		btnExcluirAgendamento.setEnabled(false);
+		btnCadastrarAgendamento.setEnabled(true);
 	}
 	
 	public void updateConsultas() {
@@ -338,6 +363,10 @@ public class TelaAgendaExames extends JInternalFrame {
 		AgendaExamesController agendaExame = new AgendaExamesController();
 		agendaExame.updateAgendamentos(agendamento, idAgendamento);
 		selectConsultas();
+		limparCampos();
+		btnAtualizarAgendamento.setEnabled(false);
+		btnExcluirAgendamento.setEnabled(false);
+		btnCadastrarAgendamento.setEnabled(true);
 	}
 	
 	public void deleteConsultas() {
@@ -346,6 +375,10 @@ public class TelaAgendaExames extends JInternalFrame {
 		AgendaExamesController agendaExame = new AgendaExamesController();
 		agendaExame.deleteAgendamentos(idAgendamento);
 		selectConsultas();
+		 limparCampos();
+		 btnAtualizarAgendamento.setEnabled(false);
+		btnExcluirAgendamento.setEnabled(false);
+		btnCadastrarAgendamento.setEnabled(true);
 	}
 	
 	public void selectHorarioProf() {

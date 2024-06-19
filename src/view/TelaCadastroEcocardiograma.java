@@ -11,6 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroEcocardiograma extends JInternalFrame {
 
@@ -48,6 +49,7 @@ public class TelaCadastroEcocardiograma extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroEcocardiograma() {
+		setFrameIcon(new ImageIcon(TelaCadastroEcocardiograma.class.getResource("/icones/coracao25.png")));
 		setMaximizable(true);
 		getContentPane().setBackground(new Color(227, 227, 227));
 		getContentPane().setLayout(null);

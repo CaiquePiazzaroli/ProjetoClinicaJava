@@ -25,6 +25,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class TelaCadastroHolter extends JInternalFrame {
 
@@ -68,6 +69,7 @@ public class TelaCadastroHolter extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaCadastroHolter() {
+		setFrameIcon(new ImageIcon(TelaCadastroHolter.class.getResource("/icones/coracao25.png")));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {

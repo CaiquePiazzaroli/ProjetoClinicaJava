@@ -122,9 +122,9 @@ public class AgendaExamesDao {
 	
 	public void insertAgendamentos(AgendamentoConsulta agendamento) {
 		
-		String sql= "insert into agendamentos (nomeCliente, "
-				+ "emailCliente, telefoneCliente, "
-				+ "celularCliente, nomeProfissional, dataRealizacao, "
+		String sql= "insert into agendamentos (nomePaciente, "
+				+ "emailPaciente, telefonePaciente, "
+				+ "celularPaciente, nomeProfissional, dataRealizacao, "
 				+ "horario, statusAgendamento, obsExames) values (?,?,?,?,?,?,?,?,?)";
 		try {
 			
@@ -153,9 +153,9 @@ public class AgendaExamesDao {
 	
 	public void updateAgendamentos(AgendamentoConsulta agendamento, String idAgendamento) {
 			
-			String sql= "update agendamentos set nomeCliente = ?, "
-					+ "emailCliente = ?, telefoneCliente = ?, "
-					+ "celularCliente = ?, nomeProfissional = ?, dataRealizacao =?, "
+			String sql= "update agendamentos set nomePaciente= ?, "
+					+ "emailPaciente = ?, telefonePaciente = ?, "
+					+ "celularPaciente = ?, nomeProfissional = ?, dataRealizacao =?, "
 					+ "horario = ?, statusAgendamento = ?, obsExames = ? where idAgendamento = ?";
 			try {
 				

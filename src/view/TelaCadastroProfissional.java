@@ -38,6 +38,7 @@ import java.awt.Font;
 import modelo.entidade.Profissional;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 public class TelaCadastroProfissional extends JInternalFrame {
 
@@ -62,6 +63,8 @@ public class TelaCadastroProfissional extends JInternalFrame {
 	private JButton btnExcluirHorario;
 	private JButton btnAtualizarHorario;
 	private JComboBox cboEspecialidade;
+	private JLabel lblNewLabel_8;
+	private JLabel lblNewLabel_9;
 	
 	public TelaCadastroProfissional() {
 		setMaximizable(true);
@@ -78,28 +81,6 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		setTitle("Cadastro de profissionais");
 		setBounds(0, 0,  948, 669);
 		getContentPane().setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("idProfissional");
-		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		lblNewLabel.setBounds(598, 109, 110, 27);
-		getContentPane().add(lblNewLabel);
-		
-		txtIdProf = new JTextField();
-		txtIdProf.setBounds(598, 147, 86, 20);
-		getContentPane().add(txtIdProf);
-		txtIdProf.setEnabled(false);
-		txtIdProf.setEditable(false);
-		txtIdProf.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Nome Profissional*");
-		lblNewLabel_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(596, 168, 150, 27);
-		getContentPane().add(lblNewLabel_1);
-		
-		txtNomeProf = new JTextField();
-		txtNomeProf.setBounds(598, 197, 324, 20);
-		getContentPane().add(txtNomeProf);
-		txtNomeProf.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 42, 575, 191);
@@ -240,11 +221,6 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		btnExcluirProf.setBounds(665, 573, 257, 32);
 		getContentPane().add(btnExcluirProf);
 		
-		JLabel lblNewLabel_3 = new JLabel("Campos Obrigatórios *");
-		lblNewLabel_3.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		lblNewLabel_3.setBounds(593, 71, 171, 27);
-		getContentPane().add(lblNewLabel_3);
-		
 		txtPesquisarProf = new JTextField();
 		txtPesquisarProf.addKeyListener(new KeyAdapter() {
 			@Override
@@ -253,7 +229,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 				pesquisarProfissional();
 			}
 		});
-		txtPesquisarProf.setBounds(10, 11, 250, 27);
+		txtPesquisarProf.setBounds(189, 8, 250, 27);
 		getContentPane().add(txtPesquisarProf);
 		txtPesquisarProf.setColumns(10);
 		
@@ -296,6 +272,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		getContentPane().add(lblNewLabel_4);
 		
 		btnAdicionarHorario = new JButton("Adicionar");
+		btnAdicionarHorario.setEnabled(false);
 		btnAdicionarHorario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				salvarHorario();
@@ -303,12 +280,6 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		});
 		btnAdicionarHorario.setBounds(665, 432, 81, 22);
 		getContentPane().add(btnAdicionarHorario);
-		
-		lblNewLabel_5 = new JLabel("");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_5.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/doutor.png")));
-		lblNewLabel_5.setBounds(782, 68, 128, 118);
-		getContentPane().add(lblNewLabel_5);
 		
 		cboDiaSemana = new JComboBox();
 		cboDiaSemana.setModel(new DefaultComboBoxModel(new String[] {"Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"}));
@@ -357,6 +328,55 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		cboEspecialidade.setModel(new DefaultComboBoxModel(new String[] {"Ecocardiograma", "Eletrocardiograma", "Ergometrico", "Holter 24"}));
 		cboEspecialidade.setBounds(10, 432, 150, 22);
 		getContentPane().add(cboEspecialidade);
+		
+		lblNewLabel_8 = new JLabel("Pesquisar Profissional:");
+		lblNewLabel_8.setFont(new Font("Yu Gothic UI", Font.PLAIN, 18));
+		lblNewLabel_8.setBounds(10, 10, 183, 21);
+		getContentPane().add(lblNewLabel_8);
+		
+		lblNewLabel_9 = new JLabel("");
+		lblNewLabel_9.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/procurar.png")));
+		lblNewLabel_9.setBounds(441, 10, 28, 22);
+		getContentPane().add(lblNewLabel_9);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Dados do profissional", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(593, 42, 329, 191);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Campos Obrigatórios *");
+		lblNewLabel_3.setBounds(10, 26, 160, 22);
+		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		
+		lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setBounds(189, 15, 127, 112);
+		panel.add(lblNewLabel_5);
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setIcon(new ImageIcon(TelaCadastroProfissional.class.getResource("/icones/doutor.png")));
+		
+		JLabel lblNewLabel = new JLabel("idProfissional");
+		lblNewLabel.setBounds(10, 48, 110, 27);
+		panel.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		
+		txtIdProf = new JTextField();
+		txtIdProf.setBounds(10, 74, 86, 20);
+		panel.add(txtIdProf);
+		txtIdProf.setEnabled(false);
+		txtIdProf.setEditable(false);
+		txtIdProf.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Nome Profissional*");
+		lblNewLabel_1.setBounds(10, 105, 150, 27);
+		panel.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		
+		txtNomeProf = new JTextField();
+		txtNomeProf.setBounds(10, 134, 309, 20);
+		panel.add(txtNomeProf);
+		txtNomeProf.setColumns(10);
 	} 
 
 	
@@ -368,6 +388,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		btnAtualizarProf.setEnabled(true);
 		btnExcluirProf.setEnabled(true);
 		btnIncluirProf.setEnabled(false);
+		btnAdicionarHorario.setEnabled(true);
 		//pesquisarEspecialidade();
 		pesquisarHorario();
 
@@ -418,6 +439,7 @@ public class TelaCadastroProfissional extends JInternalFrame {
 		ProfissionalController profissionalController = new ProfissionalController();
 		profissionalController.atualizarProfissional(txtIdProf.getText(), txtNomeProf.getText());
 		limparCampos();
+		btnAdicionarHorario.setEnabled(false);
 		pesquisarProfissional();
 	}
 	

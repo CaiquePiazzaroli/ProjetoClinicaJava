@@ -60,9 +60,10 @@ public class TelaVisualizaExames extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaVisualizaExames() {
+		setFrameIcon(new ImageIcon(TelaVisualizaExames.class.getResource("/icones/coracao25.png")));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
-			public void internalFrameActivated(InternalFrameEvent e) {
+			public void internalFrameOpened(InternalFrameEvent e) {
 				buscarExame();
 			}
 		});

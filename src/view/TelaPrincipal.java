@@ -49,7 +49,7 @@ public class TelaPrincipal extends JFrame {
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(new Color(227, 227, 227));
-		desktopPane.setBounds(248, -2, 948, 671);
+		desktopPane.setBounds(259, 0, 948, 682);
 		contentPane.add(desktopPane);
 		
 		JMenuBar menuBar = new JMenuBar();

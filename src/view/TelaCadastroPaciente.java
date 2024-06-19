@@ -201,7 +201,7 @@ public class TelaCadastroPaciente extends JInternalFrame {
 				pesquisarPaciente();
 			}
 		});
-		txtPacPesquisar.setBounds(176, 14, 318, 27);
+		txtPacPesquisar.setBounds(161, 10, 318, 27);
 		getContentPane().add(txtPacPesquisar);
 		txtPacPesquisar.setColumns(10);
 		
@@ -259,7 +259,7 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		
 		//Scroll Pane para conter a tabela
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(23, 62, 899, 198);
+		scrollPane.setBounds(10, 44, 912, 198);
 		getContentPane().add(scrollPane);
 		
 		
@@ -342,12 +342,12 @@ public class TelaCadastroPaciente extends JInternalFrame {
 		
 		lblNewLabel_10 = new JLabel("");
 		lblNewLabel_10.setIcon(new ImageIcon(TelaCadastroPaciente.class.getResource("/icones/procurar.png")));
-		lblNewLabel_10.setBounds(504, 21, 24, 20);
+		lblNewLabel_10.setBounds(482, 11, 24, 27);
 		getContentPane().add(lblNewLabel_10);
 		
 		lblNewLabel_11 = new JLabel("Pesquisar Pacientes:");
 		lblNewLabel_11.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
-		lblNewLabel_11.setBounds(23, 11, 152, 27);
+		lblNewLabel_11.setBounds(10, 7, 152, 27);
 		getContentPane().add(lblNewLabel_11);
 		
 		

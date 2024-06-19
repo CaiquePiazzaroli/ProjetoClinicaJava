@@ -17,7 +17,7 @@ public class ProfissionalDao {
 	
 	public ResultSet selectProfissionais(JTextField campoPesquisa) {
 		//Query que será executada no banco de dados
-		String sql= "select * from profissionais where nomeProfissional like ?";
+		String sql= "select idProfissional as 'ID', nomeProfissional as 'Nome' from profissionais where nomeProfissional like ?";
 		try {
 			pst = conexao.prepareStatement(sql);
 			
@@ -166,7 +166,7 @@ public class ProfissionalDao {
 			pst.setString(5, horarioFim);
 			pst.executeUpdate();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e);
+			JOptionPane.showMessageDialog(null, "Cada profissional responsável deve ter apenas um horário cadastrado por dia da semana!");
 		}
 	}
 	

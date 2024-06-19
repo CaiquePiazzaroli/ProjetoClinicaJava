@@ -23,6 +23,7 @@ import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 public class TelaCadastroHolterAtualizar extends JDialog {
 
@@ -50,6 +51,7 @@ public class TelaCadastroHolterAtualizar extends JDialog {
 	
 	
 	public TelaCadastroHolterAtualizar(String idExame) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelaCadastroHolterAtualizar.class.getResource("/icones/coracao25.png")));
 		setTitle("Alterar Exame");
 		setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		addWindowListener(new WindowAdapter() {
