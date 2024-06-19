@@ -133,7 +133,7 @@ public class TelaVisualizaExames extends JInternalFrame {
 				
 			}
 		});
-		tblExames.setFont(new Font("Yu Gothic UI", Font.PLAIN, 18));
+		tblExames.setFont(new Font("Yu Gothic UI", Font.PLAIN, 11));
 		scrollPane.setViewportView(tblExames);
 		
 		JButton btnDadosExame = new JButton("Visualizar Exame");

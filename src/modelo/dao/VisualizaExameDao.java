@@ -32,7 +32,7 @@ public class VisualizaExameDao {
 	}
 	
 	public ResultSet selectExameEco(String tipoExame) {
-		String sql = "select * from ecocardiograma";
+		String sql = "select idExame as 'Exame', paciente as Paciente, profissional as 'Responsável', horarioExame as 'Horario', dataExame as 'Data', idAgendamento as 'Referente ao agendamento'  from ecocardiograma";
 		
 		try {
 			pst = conexao.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class VisualizaExameDao {
 	}
 	
 	public ResultSet selectExameEletro(String tipoExame) {
-		String sql = "select * from eletrocardiograma";
+		String sql = "select idExame as 'Exame', paciente as Paciente, profissional as 'Responsável', horarioExame as 'Horario', dataExame as 'Data', idAgendamento as 'Referente ao agendamento'  from eletrocardiograma";
 		
 		try {
 			pst = conexao.prepareStatement(sql);
@@ -60,7 +60,7 @@ public class VisualizaExameDao {
 	}
 	
 	public ResultSet selectExameErgo(String tipoExame) {
-		String sql = "select * from ergometrico";
+		String sql = "select idExame as 'Exame', paciente as Paciente, profissional as 'Responsável', horarioExame as 'Horario', dataExame as 'Data', idAgendamento as 'Referente ao agendamento'  from ergometrico";
 		
 		try {
 			pst = conexao.prepareStatement(sql);
