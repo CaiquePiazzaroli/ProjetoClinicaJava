@@ -31,6 +31,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.ListSelectionModel;
+import java.awt.event.MouseMotionAdapter;
 
 public class TelaVisualizaExames extends JInternalFrame {
 
@@ -128,6 +130,13 @@ public class TelaVisualizaExames extends JInternalFrame {
 		getContentPane().add(scrollPane);
 		
 		tblExames = new JTable();
+		tblExames.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				
+			}
+		});
+		tblExames.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tblExames.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -177,7 +186,6 @@ public class TelaVisualizaExames extends JInternalFrame {
 	
 	public void buscarExame() {
 		VisualizaExameController examesController = new VisualizaExameController();
-		System.out.println(cboTipoExame.getSelectedItem().toString());
 		ResultSet rs = examesController.selectExames(cboTipoExame.getSelectedItem().toString());
 		tblExames.setModel(DbUtils.resultSetToTableModel(rs));
 	}

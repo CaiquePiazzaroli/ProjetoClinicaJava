@@ -81,8 +81,4 @@ public class Eletrocardio {
 	public void setObsExame(String obsExame) {
 		this.obsExame = obsExame;
 	}
-	
-	
-	
-	
 }

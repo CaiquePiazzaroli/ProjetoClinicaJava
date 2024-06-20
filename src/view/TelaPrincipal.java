@@ -41,7 +41,7 @@ public class TelaPrincipal extends JFrame {
 		setTitle("AMAR - Tela Principal");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1213, 737);
+		setBounds(100, 100, 1213, 728);
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(67, 67, 67));
@@ -104,6 +104,39 @@ public class TelaPrincipal extends JFrame {
 		});
 		mntmNewMenuItem_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
 		menCad.add(mntmNewMenuItem_1);
+		
+		JMenuItem mntmNewMenuItem_1_1 = new JMenuItem("Eletrocardiograma");
+		mntmNewMenuItem_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroEcocardiograma telaEco = new TelaCadastroEcocardiograma();
+				telaEco.setVisible(true);
+				desktopPane.add(telaEco);
+			}
+		});
+		
+		JMenuItem mntmNewMenuItem_1_1_1 = new JMenuItem("Ecocardiograma");
+		mntmNewMenuItem_1_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroEletrocardiograma telaEletro = new TelaCadastroEletrocardiograma();
+				telaEletro.setVisible(true);
+				desktopPane.add(telaEletro);
+			}
+		});
+		mntmNewMenuItem_1_1_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		menCad.add(mntmNewMenuItem_1_1_1);
+		
+		JMenuItem mntmNewMenuItem_1_2 = new JMenuItem("Teste Ergométrico");
+		mntmNewMenuItem_1_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TelaCadastroErgometrico telaErgo = new TelaCadastroErgometrico();
+				telaErgo.setVisible(true);
+				desktopPane.add(telaErgo);
+			}
+		});
+		mntmNewMenuItem_1_2.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		menCad.add(mntmNewMenuItem_1_2);
+		mntmNewMenuItem_1_1.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));
+		menCad.add(mntmNewMenuItem_1_1);
 		
 		JMenu mnNewMenu = new JMenu("Consultas e Exames");
 		mnNewMenu.setFont(new Font("Yu Gothic UI", Font.PLAIN, 16));

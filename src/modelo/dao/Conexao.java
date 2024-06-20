@@ -15,7 +15,7 @@ public class Conexao {
 		
 		//Caminho do driver
 		String driver = "com.mysql.cj.jdbc.Driver";
-				
+		
 		//Dados da base de dados
 		String url = "jdbc:mysql://localhost:3306/clinica";
 		String user = "root";
